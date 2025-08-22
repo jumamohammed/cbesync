@@ -28,17 +28,17 @@ class SchoolClass(models.Model):
     class_status = models.CharField(max_length=10,choices=STATUS_CHOICES, default='Active', help_text="Class status (Active or Archived).")
     #9. Class password to prevent unathorised editing
     #rely on user roles after prototyping
-    class_password = models.CharField( max_length=128, help_text="Hashed password for editing the class data.")
+    # class_password = models.CharField( max_length=128, help_text="Hashed password for editing the class data.")
     #10 .Timestamps just like for the school
     class_creation_date = models.DateTimeField(auto_now_add=True, help_text="Time when the class whas created")
     class_updated_date = models.DateTimeField(auto_now=True, help_text="Last time the class was updated")
 
     #an overide to save class and encrypt password if not
-    def save(self, *args, **kwargs):
-        #hash the password if new or changed
-        if not self.class_password.startswith('pbkdf2_'):
-            self.class_password = make_password(self.class_password)
-        super().save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     #hash the password if new or changed
+    #     if not self.class_password.startswith('pbkdf2_'):
+    #         self.class_password = make_password(self.class_password)
+    #     super().save(*args, **kwargs)
     
     def __str__(self):
         return f"{self.class_name} {self.class_school.school_name}"

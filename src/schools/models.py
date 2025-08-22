@@ -28,7 +28,7 @@ class School(models.Model):
     school_ward = models.CharField(max_length=50, blank=True, null=True, help_text="Optional ward fill for zonal exams management")
     school_location = models.CharField(max_length=255, help_text="Location of school residence.")
     #8. Contact fields
-    school_email = models.EmailField(max_length=100, help_text="Official school email")
+    # school_email = models.EmailField(max_length=100, help_text="Official school email")
     school_phone = models.CharField(max_length=20, help_text="Official  School tell NO.")
     #9. School status in the site
     STATUS_CHOICES = [ ('Pending', 'Pending Validation'), ('Active', 'Active'), ('Suspended', 'Suspended')]
@@ -36,17 +36,17 @@ class School(models.Model):
     #10. School name(topadmin)
     school_principal = models.CharField(max_length=100, help_text="Name of the toplevel Admin")
     #11. School password i.e hashed school password
-    school_password = models.CharField(max_length=128, help_text="Hashed school login password")
+    # school_password = models.CharField(max_length=128, help_text="Hashed school login password")
     #12. Timestamps
     school_creation_date = models.DateTimeField(auto_now_add=True, help_text="Creation date/time stamp")
     school_updated_date = models.DateTimeField(auto_now=True, help_text="Last Modification timestamp")
 
     #automatically save and hash the password if not hashed
-    def save(self, *args, **kwargs):
-        #hash the unhashed password
-        if not self.school_password.startswith('pbkdf2_'):
-            self.school_password = make_password(self.school_password)
-        super().save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     #hash the unhashed password
+    #     if not self.school_password.startswith('pbkdf2_'):
+    #         self.school_password = make_password(self.school_password)
+    #     super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.school_name} {self.school_code}"
