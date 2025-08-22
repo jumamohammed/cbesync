@@ -110,8 +110,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-#AUTH_USER_MODEL = 'accounts.CustomUser' --future allouth config
-#ACCOUNT_SIGNUP_FORM_CLASS = 'accounts.forms.CustomSignupForm'
+AUTH_USER_MODEL = 'accounts.CustomUser' #for avoiding default auth config
+ACCOUNT_SIGNUP_FORM_CLASS = 'accounts.forms.CustomSignupForm'
 
 
 # Internationalization
