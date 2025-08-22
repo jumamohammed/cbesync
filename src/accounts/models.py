@@ -11,9 +11,10 @@ class CustomUser(AbstractUser):
             ('teacher', 'Teacher'),
             ('student', 'Student'),
             ('parent', 'Parent'),
+            ('SysAdmin', 'SysAdmin'),
         )
     user_type = models.CharField(max_length=10, choices=USER_TYPE_CHOICES, help_text="Usertype selection for allauth modularity")
-    
+
 
 
 #this is a student class(table)
