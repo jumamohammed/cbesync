@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'comms',
     'classes',
     'teachers',
+    'students',
+    'parents',
 ]
 
 MIDDLEWARE = [
@@ -107,6 +109,9 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+#AUTH_USER_MODEL = 'accounts.CustomUser' --future allouth config
+#ACCOUNT_SIGNUP_FORM_CLASS = 'accounts.forms.CustomSignupForm'
 
 
 # Internationalization

@@ -28,4 +28,6 @@ urlpatterns = [
     path('material/', include('materials.urls')),
     path('classes/', include('classes.urls')),
     path('teacher/', include('teachers.urls')),
+    path('student/', include('students.urls')),
+    path('parent/', include('parents.urls')),
 ]

@@ -1,10 +1,12 @@
 from django.db import models
 from django.contrib.auth.hashers import make_password
-from django.utils import timezone
+from accounts.models import CustomUser
+
 
 # Create your models here.
 #this is a school class(table in short)
 class School(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     #unique school code max 20 char
     school_code = models.CharField(max_length=20, unique=True, help_text="Official MOE school code.")
     #official school name
