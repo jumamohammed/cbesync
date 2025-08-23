@@ -4,7 +4,7 @@ import uuid
 
 #funtion to generate random but different course
 def generate_unique_course_id():
-    #from courses.models import Course #commented out since from the same file
+    from .models import Course#from courses.models import Course #commented out since from the same file
     while True:
         new_id = f"SCH-{uuid.uuid4().hex[:8].upper()}"
         if not Course.objects.filter(course_id=new_id).exists():
@@ -17,7 +17,7 @@ class Course(models.Model):
     course_school = models.ForeignKey('schools.School', to_field='school_id', on_delete=models.CASCADE, related_name='courses', help_text="Courses offered in the schools")
     #3. the name of the course
     COURSES_OPTIONS = [('PRE-PRIMARY-EDUCATION', 'PRE-PRIMARY-EDUCATION'),('JUNIOR-SECONDARY-EDUCATION','JUNIOR-SECONDARY-EDUCATION'),('SENIOR-SECONDARY-EDUCATION','SENIOR-SECONDARY-EDUCATION'),('OTHER', 'OTHER')]
-    course_name = models.CharField(max_length=50, unique=True,choices=COURSES_OPTIONS, help_text="Name of the course")
+    course_name = models.CharField(max_length=50, db_index=True, unique=True,choices=COURSES_OPTIONS, help_text="Name of the course")
     #4. course description
     course_description = models.TextField(null=True, blank=True, help_text="Course description")
     #5. course level to be taken ..jss, ppr, sss,,

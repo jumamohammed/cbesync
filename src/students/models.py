@@ -7,7 +7,7 @@ import uuid
 
 #funtion to generate random but different student ids
 def generate_unique_student_id():
-    #from students.models import Student #commented out since from same file
+    from .models import Student#from students.models import Student #commented out since from same file
     while True:
         new_id = f"STD-{uuid.uuid4().hex[:8].upper()}"
         if not Student.objects.filter(student_id=new_id).exists():

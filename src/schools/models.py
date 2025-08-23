@@ -5,7 +5,7 @@ import uuid
 
 #funtion to generate random but different school id
 def generate_unique_school_id():
-    #from schools.models import School #commented out since from the same file
+    from .models import School#from schools.models import School #commented out since from the same file
     while True:
         new_id = f"SCH-{uuid.uuid4().hex[:8].upper()}"
         if not School.objects.filter(school_id=new_id).exists():
@@ -19,7 +19,7 @@ class School(models.Model):
     #unique school code max 20 char
     school_code = models.CharField(max_length=20, unique=True, help_text="Official MOE school code.")
     #official school name
-    school_name = models.CharField(max_length=150, help_text="Official school name.")
+    school_name = models.CharField(max_length=150, db_index=True, help_text="Official school name.")
     #school type enum
     SCHOOL_TYPES_CHOICES = [ ('Pre-Pri', 'Pre-Pri'), ('Primary', 'Primary'), ('Junior-SS', 'Junior-SS'), ('Senior-SS', 'Senior-SS'), ('Internatioanal', 'Internatioanal'),]
     school_type = models.CharField(max_length=20, choices=SCHOOL_TYPES_CHOICES, help_text="Type of school i.e P-PR,JSS,SSC,")

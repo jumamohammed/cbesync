@@ -5,7 +5,7 @@ import uuid
 
 #funtion to generate random but different class ids
 def generate_unique_class_id():
-    #from classes.models import SchoolClass #commented out since from the same file
+    from .models import SchoolClass#from classes.models import SchoolClass #commented out since from the same file
     while True:
         new_id = f"CLS-{uuid.uuid4().hex[:8].upper()}"
         if not SchoolClass.objects.filter(class_id=new_id).exists():
@@ -24,7 +24,7 @@ class SchoolClass(models.Model):
     class_name = models.CharField(max_length=50,default='Grade', help_text="The name of the class e.g -stoic-room ")
     #4. educational level
     CLASS_LEVEL_CHOICES = [ (1, '1'), (2, '2'), (3, '3'), (4, '4'), (5, '5'), (6, '6'), (7, '7'), (8, '8'), (9, '9'), (10, '10'), (11, '11'), (12, '12'), ]
-    class_level = models.IntegerField(choices=CLASS_LEVEL_CHOICES,unique=True, help_text="Educational level e.g 7,8,9")
+    class_level = models.IntegerField(choices=CLASS_LEVEL_CHOICES, db_index=True,unique=True, help_text="Educational level e.g 7,8,9")
     #5. Class Teacher field
     class_teacher = models.ForeignKey('teachers.Teacher', on_delete=models.SET_NULL, null=True, blank=True, related_name='classes', help_text="Teache assigned to the class")
     #6. class capacity / number of students
@@ -34,7 +34,7 @@ class SchoolClass(models.Model):
     class_stream = models.CharField(max_length=20, null=True, blank=True, help_text="Optional stream Identifierve.g 'A','B'." )
     #8. Class status i.e whether active or archived(graduated)
     STATUS_CHOICES = [ ('Active', 'Active'), ('Archived', 'Archived'),]
-    class_status = models.CharField(max_length=10,choices=STATUS_CHOICES, default='Active', help_text="Class status (Active or Archived).")
+    class_status = models.CharField(max_length=10,choices=STATUS_CHOICES, db_index=True, default='Active', help_text="Class status (Active or Archived).")
     #9. Class password to prevent unathorised editing
     #rely on user roles after prototyping
     # class_password = models.CharField( max_length=128, help_text="Hashed password for editing the class data.")

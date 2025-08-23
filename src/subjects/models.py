@@ -4,7 +4,7 @@ import uuid
 
 #funtion to generate random but different subject id
 def generate_unique_subject_id():
-    #from subjects.models import Subject #commented out since from the same file
+    from .models import Subject#from subjects.models import Subject #commented out since from the same file
     while True:
         new_id = f"SBJ-{uuid.uuid4().hex[:8].upper()}"
         if not Subject.objects.filter(subject_id=new_id).exists():
@@ -17,7 +17,7 @@ class Subject(models.Model):
     #2. the course containing the subject
     subject_course = models.ForeignKey('courses.Course', to_field='course_id', on_delete=models.CASCADE, related_name='subjects', help_text="Course of the subject")
     #3. the name of the course
-    subject_name = models.CharField(max_length=100, help_text='This is the name of the subject')
+    subject_name = models.CharField(max_length=100, db_index=True, help_text='This is the name of the subject')
     #4. Subject code i.e short name e.g CIT-001
     subject_code = models.CharField(max_length=20, unique=True, null=True, blank=True, help_text=" Optional Program short code e.g CIT-001")
     #5. A Subject description

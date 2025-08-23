@@ -4,7 +4,7 @@ import uuid
 
 #funtion to generate random but different student ids
 def generate_unique_club_id():
-    #from clubs.models import Club #commented out since from the same file
+    from .models import Club#from clubs.models import Club #commented out since from the same file
     while True:
         new_id = f"CLB-{uuid.uuid4().hex[:8].upper()}"
         if not Club.objects.filter(club_id=new_id).exists():
@@ -25,7 +25,7 @@ class Club(models.Model):
     club_patron = models.ForeignKey('teachers.Teacher', to_field='teacher_id', on_delete=models.SET_NULL, null=True, blank=True, related_name="patron_clubs", help_text="The patron of the club")
     #6. Status choices
     STATUS_CHOICES = [ ('Active', 'Active'), ('Inactive', 'Inactive'),]
-    club_status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Active', help_text="whether the club is active/inactive")
+    club_status = models.CharField(max_length=20, choices=STATUS_CHOICES, db_index=True, default='Active', help_text="whether the club is active/inactive")
     #7. Timestmps for creation and update
     club_creation_date = models.DateField(default=timezone.now, help_text="clubs creation timestamp")
     club_update_date = models.DateTimeField(auto_now=True, help_text="Last time the club was updated")
