@@ -12,7 +12,7 @@ class SchoolClass(models.Model):
     #2. Foreign key to school
     class_school = models.ForeignKey('schools.School', on_delete=models.CASCADE, related_name='classes', help_text="The school owning the class")
     #3. Name of the class
-    class_name = models.CharField(max_length=50, help_text="The name of the class e.g -stoic-room ")
+    class_name = models.CharField(max_length=50,default='Grade', help_text="The name of the class e.g -stoic-room ")
     #4. educational level
     CLASS_LEVEL_CHOICES = [ (1, '1'), (2, '2'), (3, '3'), (4, '4'), (5, '5'), (6, '6'), (7, '7'), (8, '8'), (9, '9'), (10, '10'), (11, '11'), (12, '12'), ]
     class_level = models.IntegerField(choices=CLASS_LEVEL_CHOICES,unique=True, help_text="Educational level e.g 7,8,9")
@@ -41,4 +41,4 @@ class SchoolClass(models.Model):
     #     super().save(*args, **kwargs)
     
     def __str__(self):
-        return f"{self.class_name} {self.class_school.school_name}"
+        return f"{self.class_name}-{self.class_level} ({self.class_school.school_name})"

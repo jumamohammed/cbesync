@@ -16,7 +16,8 @@ class Course(models.Model):
     #2. school of the course
     course_school = models.ForeignKey('schools.School', to_field='school_id', on_delete=models.CASCADE, related_name='courses', help_text="Courses offered in the schools")
     #3. the name of the course
-    course_name = models.CharField(max_length=100, unique=True, help_text="Name of the course")
+    COURSES_OPTIONS = [('PRE-PRIMARY-EDUCATION', 'PRE-PRIMARY-EDUCATION'),('JUNIOR-SECONDARY-EDUCATION','JUNIOR-SECONDARY-EDUCATION'),('SENIOR-SECONDARY-EDUCATION','SENIOR-SECONDARY-EDUCATION'),('OTHER', 'OTHER')]
+    course_name = models.CharField(max_length=50, unique=True,choices=COURSES_OPTIONS, help_text="Name of the course")
     #4. course description
     course_description = models.TextField(null=True, blank=True, help_text="Course description")
     #5. course level to be taken ..jss, ppr, sss,,
