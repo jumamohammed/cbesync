@@ -2,13 +2,22 @@ from django.db import models
 from accounts.models import CustomUser
 from django.utils import timezone
 from django.contrib.auth.hashers import make_password
+import uuid
+
+#funtion to generate random but different parent ids
+def generate_unique_parent_id():
+    from parents.models import Parent
+    while True:
+        new_id = f"PAR-{uuid.uuid4().hex[:8].upper()}"
+        if not Parent.objects.filter(parent_id=new_id).exists():
+            return new_id
 
 # Create your models here.
 class Parent(models.Model):
     #Inherited user model for django allauth stuff
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, null=True, blank=True, help_text="inherited user account")
-    #1. parent primary key
-    parent_id = models.CharField(max_length=100,null=True, help_text="parent identifer in the system")
+    #1. parent identifier id
+    parent_id = models.CharField(primary_key=True,max_length=20, default=generate_unique_parent_id, help_text="parent identifer in the system")
     # #3. parent names
     # parent_first_name = models.CharField(max_length=100, help_text="Parent first name")
     # parent_last_name = models.CharField(max_length=100, help_text="parent last name")

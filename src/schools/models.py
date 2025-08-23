@@ -1,12 +1,21 @@
 from django.db import models
 from django.contrib.auth.hashers import make_password
 from accounts.models import CustomUser
+import uuid
 
+#funtion to generate random but different school
+def generate_unique_school_id():
+    from schools.models import School
+    while True:
+        new_id = f"SCH-{uuid.uuid4().hex[:8].upper()}"
+        if not School.objects.filter(school_id=new_id).exists():
+            return new_id
 
 # Create your models here.
 #this is a school class(table in short)
 class School(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    school_id = models.CharField(primary_key=True,max_length=20, default=generate_unique_school_id ,help_text="A unique identifier for every school system")
     #unique school code max 20 char
     school_code = models.CharField(max_length=20, unique=True, help_text="Official MOE school code.")
     #official school name

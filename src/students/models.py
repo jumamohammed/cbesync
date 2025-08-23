@@ -3,17 +3,27 @@ from accounts.models import CustomUser
 from django.contrib.auth.hashers import make_password
 from django.utils import timezone
 from datetime import date
+import uuid
+
+#funtion to generate random but different student ids
+def generate_unique_student_id():
+    from students.models import Student
+    while True:
+        new_id = f"STD-{uuid.uuid4().hex[:8].upper()}"
+        if not Student.objects.filter(student_id=new_id).exists():
+            return new_id
+
 
 # Create your models here.
 class Student(models.Model):
     #inherited user style from accounts
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, null=True, blank=True, help_text="User defined")
     # #1. Primary key for student
-    # student_id = models.AutoField(primary_key=True, help_text="A unique identifier for every student in the table")
+    student_id = models.CharField(primary_key=True,max_length=20, default=generate_unique_student_id ,help_text="A unique identifier for every student in the table")
     #2. Student school
-    student_school = models.ForeignKey('schools.School', on_delete=models.CASCADE, null=True, blank=True, related_name='students', help_text="the school the student belongs to")
+    student_school = models.ForeignKey('schools.School',to_field='school_id', on_delete=models.CASCADE, null=True, blank=True, related_name='students', help_text="the school the student belongs to")
     #3. The class of the student
-    student_class = models.ForeignKey('classes.SchoolClass', on_delete=models.SET_NULL, null=True, blank=True, related_name='students', help_text="the class the student is currently enrolled in")
+    student_class = models.ForeignKey('classes.SchoolClass',to_field='class_id', on_delete=models.SET_NULL, null=True, blank=True, related_name='students', help_text="the class the student is currently enrolled in")
     #4. Student admission no and assessmet no
     student_admission_number = models.CharField(max_length=30, unique=True, default="XXXXX", help_text="Unique number given to student after registration")
     student_assessment_number = models.CharField(max_length=20, unique=True, default="XXXXX", help_text="Unique number given to the student by the state")
@@ -36,8 +46,8 @@ class Student(models.Model):
     #11. Enrollment date
     student_enrollment_date = models.DateField(default=date.today, help_text="The date the student was enrolled")
     #12. Student parent links
-    student_guardian1 = models.ForeignKey('parents.Parent', on_delete=models.SET_NULL, null=True, blank=True, related_name='primay_students', help_text="Primary guardian(1)")
-    student_guardian2 = models.ForeignKey('parents.Parent', on_delete=models.SET_NULL, null=True, blank=True, related_name='secondary_students',help_text="Secondary guradian(2)")
+    student_guardian1 = models.ForeignKey('parents.Parent',to_field='parent_id', on_delete=models.SET_NULL, null=True, blank=True, related_name='primay_students', help_text="Primary guardian(1)")
+    student_guardian2 = models.ForeignKey('parents.Parent',to_field='parent_id', on_delete=models.SET_NULL, null=True, blank=True, related_name='secondary_students',help_text="Secondary guradian(2)")
     #13. Timestamps i.e created, updated
     student_creation_date = models.DateTimeField( default=timezone.now, help_text="Student record creation timestamp")
     student_update = models.DateTimeField(auto_now=True, help_text="Last record update timestamp")

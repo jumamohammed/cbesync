@@ -1,16 +1,24 @@
 from django.db import models
 from django.contrib.auth.hashers import make_password
 from accounts.models import CustomUser
+import uuid
 
+#funtion to generate random but different teacher ids
+def generate_unique_teacher_id():
+    from teachers.models import Teacher
+    while True:
+        new_id = f"TCH-{uuid.uuid4().hex[:8].upper()}"
+        if not Teacher.objects.filter(teacher_id=new_id).exists():
+            return new_id
 # Create your models here.
 class Teacher(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE) #linking to the account_main_use for allauth authentification and such
     #1. Teacher primary key. an autofield by default in django
-    teacher_id = models.AutoField(primary_key=True, help_text="A unique identifier for the teacher in the sys")
+    teacher_id = models.CharField(primary_key=True,max_length=20, default=generate_unique_teacher_id, help_text="A unique identifier for the teacher in the sys")
     #2. Foreign Key to school
-    teacher_school = models.ForeignKey('schools.School',on_delete=models.CASCADE, related_name='teachers', help_text="The school from which teh teacher belongs")
+    teacher_school = models.ForeignKey('schools.School',to_field='school_id',on_delete=models.CASCADE, related_name='teachers', help_text="The school from which teh teacher belongs")
     #3. Official TSC Number
-    teacher_tsc_number = models.CharField(max_length=30, unique=True, help_text="Teacher's tsc assigned number")
+    teacher_tsc_number = models.CharField( max_length=30,null=True, blank=True, help_text="Teacher's tsc assigned number")
     # #4. First and Last name
     # teacher_first_name = models.CharField(max_length=100, help_text="Teacher's first name")
     # teacher_last_name = models.CharField(max_length=100, help_text="Teacher's last name")
