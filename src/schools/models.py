@@ -3,7 +3,7 @@ from django.contrib.auth.hashers import make_password
 from accounts.models import CustomUser
 import uuid
 
-#funtion to generate random but different school
+#funtion to generate random but different school id
 def generate_unique_school_id():
     from schools.models import School
     while True:

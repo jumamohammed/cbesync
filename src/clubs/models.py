@@ -20,7 +20,7 @@ class Club(models.Model):
     #3. Club name
     club_name = models.CharField(max_length=100, unique=True, help_text="Name of the club e.g Drama, Science")
     #4. Club description
-    club_description = models.CharField(max_length=300 ,null=True, blank=True, help_text="Short description of the club")
+    club_description = models.TextField(max_length=300 ,null=True, blank=True, help_text="Short description of the club")
     #5. Club patron i.e a teacher responsible for the club
     club_patron = models.ForeignKey('teachers.Teacher', to_field='teacher_id', on_delete=models.SET_NULL, null=True, blank=True, related_name="patron_clubs", help_text="The patron of the club")
     #6. Status choices
