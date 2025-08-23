@@ -35,15 +35,15 @@ class Result(models.Model):
     # result_exam_type = models.CharField(max_length=20, choices=RESULT_TYPE_CHOICES, default='CAT', help_text="Type of exam")
     result_exam = models.ForeignKey('exams.Exam', to_field='exam_id',null=True, on_delete=models.SET_NULL, related_name='results', help_text="The exam this result belongs to")
     result_cat = models.ForeignKey('cats.Cat', to_field='cat_id',on_delete=models.SET_NULL, null=True, related_name='results', help_text="The cat these result belongs to" )
-    result_project = 0
+    result_project = models.ForeignKey('projects.Project', to_field='project_id', on_delete=models.SET_NULL, null=True, related_name='results', help_text="The project these result belongs to")
     #4. exam term and academin year
     # RESULT_TERM_CHOICES = [('Term-1','Term-1'),('Term-2','Term-2'),('Term-3','Term-3'), ]
     # result_term = models.CharField(max_length=20,choices=RESULT_TERM_CHOICES, help_text="Academic term when the exam was done")
     # result_year = models.IntegerField(default=datetime.now().year, help_text="Year done e.g. 2025")
     #5. student perfomance 
-    result_exam_score = models.DecimalField(max_digits=4, validators=[MinValueValidator(0)], default=0, decimal_places=2, help_text="Numeric exam score e.g 99.99")
-    result_cat_score = models.DecimalField(max_digits=4, validators=[MinValueValidator(0)], default=0, decimal_places=2, help_text="Numeric cat score e.g 99.99")
-    result_project_score = models.DecimalField(max_digits=4, validators=[MinValueValidator(0)], default=0, decimal_places=2, help_text="Numeric exam score e.g 99.99")
+    # result_exam_score = models.DecimalField(max_digits=4, validators=[MinValueValidator(0)], default=0, decimal_places=2, help_text="Numeric exam score e.g 99.99")
+    # result_cat_score = models.DecimalField(max_digits=4, validators=[MinValueValidator(0)], default=0, decimal_places=2, help_text="Numeric cat score e.g 99.99")
+    # result_project_score = models.DecimalField(max_digits=4, validators=[MinValueValidator(0)], default=0, decimal_places=2, help_text="Numeric exam score e.g 99.99")
     result_average_score = models.DecimalField(max_digits=4, validators=[MinValueValidator(0)], default=0, decimal_places=2, help_text="Numeric average score e.g 99.99")
     result_grade = models.CharField(max_length=5, db_index=True, null=True, blank=True, help_text="Grade Awarded e.g EE1")
     result_remarks = models.TextField(null=True, blank=True, help_text="Teachers comments")
