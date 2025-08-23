@@ -4,7 +4,7 @@ import uuid
 
 #funtion to generate random but different student ids
 def generate_unique_club_id():
-    from clubs.models import Club
+    #from clubs.models import Club #commented out since from the same file
     while True:
         new_id = f"CLB-{uuid.uuid4().hex[:8].upper()}"
         if not Club.objects.filter(club_id=new_id).exists():

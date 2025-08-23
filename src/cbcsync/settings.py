@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'parents',
     'clubs',
     'subjects',
+    'results',
 ]
 
 MIDDLEWARE = [

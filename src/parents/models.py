@@ -6,7 +6,7 @@ import uuid
 
 #funtion to generate random but different parent ids
 def generate_unique_parent_id():
-    from parents.models import Parent
+    #from parents.models import Parent #commented out since from the same file
     while True:
         new_id = f"PAR-{uuid.uuid4().hex[:8].upper()}"
         if not Parent.objects.filter(parent_id=new_id).exists():

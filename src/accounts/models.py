@@ -15,12 +15,3 @@ class CustomUser(AbstractUser):
         )
     user_type = models.CharField(max_length=10, choices=USER_TYPE_CHOICES, help_text="Usertype selection for allauth modularity")
 
-
-
-#this is a student class(table)
-class student(models.Model):
-    pass
-
-#this is a parent class(table)
-class parent(models.Model):
-    pass

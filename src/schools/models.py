@@ -5,7 +5,7 @@ import uuid
 
 #funtion to generate random but different school id
 def generate_unique_school_id():
-    from schools.models import School
+    #from schools.models import School #commented out since from the same file
     while True:
         new_id = f"SCH-{uuid.uuid4().hex[:8].upper()}"
         if not School.objects.filter(school_id=new_id).exists():

@@ -5,7 +5,7 @@ import uuid
 
 #funtion to generate random but different teacher ids
 def generate_unique_teacher_id():
-    from teachers.models import Teacher
+    #from teachers.models import Teacher #commented ou since from the same file
     while True:
         new_id = f"TCH-{uuid.uuid4().hex[:8].upper()}"
         if not Teacher.objects.filter(teacher_id=new_id).exists():

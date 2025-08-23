@@ -4,7 +4,7 @@ import uuid
 
 #funtion to generate random but different course
 def generate_unique_course_id():
-    from courses.models import Course
+    #from courses.models import Course #commented out since from the same file
     while True:
         new_id = f"SCH-{uuid.uuid4().hex[:8].upper()}"
         if not Course.objects.filter(course_id=new_id).exists():
