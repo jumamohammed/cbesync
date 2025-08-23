@@ -17,7 +17,7 @@ class Parent(models.Model):
     #Inherited user model for django allauth stuff
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, null=True, blank=True, help_text="inherited user account")
     #1. parent identifier id
-    parent_id = models.CharField(primary_key=True,max_length=20, default=generate_unique_parent_id, help_text="parent identifer in the system")
+    parent_id = models.CharField(primary_key=True,max_length=20, default=generate_unique_parent_id, editable=False, help_text="parent identifer in the system")
     # #3. parent names
     # parent_first_name = models.CharField(max_length=100, help_text="Parent first name")
     # parent_last_name = models.CharField(max_length=100, help_text="parent last name")

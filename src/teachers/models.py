@@ -14,7 +14,7 @@ def generate_unique_teacher_id():
 class Teacher(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE) #linking to the account_main_use for allauth authentification and such
     #1. Teacher primary key. an autofield by default in django
-    teacher_id = models.CharField(primary_key=True,max_length=20, default=generate_unique_teacher_id, help_text="A unique identifier for the teacher in the sys")
+    teacher_id = models.CharField(primary_key=True,max_length=20, default=generate_unique_teacher_id, editable=False, help_text="A unique identifier for the teacher in the sys")
     #2. Foreign Key to school
     teacher_school = models.ForeignKey('schools.School',to_field='school_id',on_delete=models.CASCADE, related_name='teachers', help_text="The school from which teh teacher belongs")
     #3. Official TSC Number

@@ -19,7 +19,7 @@ class Student(models.Model):
     #inherited user style from accounts
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, null=True, blank=True, help_text="User defined")
     # #1. Primary key for student
-    student_id = models.CharField(primary_key=True,max_length=20, default=generate_unique_student_id ,help_text="A unique identifier for every student in the table")
+    student_id = models.CharField(primary_key=True,max_length=20, default=generate_unique_student_id ,editable=False, help_text="A unique identifier for every student in the table")
     #2. Student school
     student_school = models.ForeignKey('schools.School',to_field='school_id', on_delete=models.CASCADE, null=True, blank=True, related_name='students', help_text="the school the student belongs to")
     #3. The class of the student

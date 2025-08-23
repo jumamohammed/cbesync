@@ -15,7 +15,7 @@ def generate_unique_school_id():
 #this is a school class(table in short)
 class School(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    school_id = models.CharField(primary_key=True,max_length=20, default=generate_unique_school_id ,help_text="A unique identifier for every school system")
+    school_id = models.CharField(primary_key=True,max_length=20, default=generate_unique_school_id, editable=False, help_text="A unique identifier for every school system")
     #unique school code max 20 char
     school_code = models.CharField(max_length=20, unique=True, help_text="Official MOE school code.")
     #official school name
