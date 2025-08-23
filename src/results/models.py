@@ -46,7 +46,7 @@ class Result(models.Model):
 
     #7. String representation of the results
     def __str__(self):
-        return f"{self.result_student} | {self.result_subject.name} | {self.result_exam.term} {self.result_exam.exam_year}"
+        return f"{self.result_student} | {self.result_subject.subject_name} | {self.result_exam.exam_term} {self.result_exam.exam_year}"
     #8. Meta ordering
     class Meta:
         unique_together = ('result_exam', 'result_student', 'result_subject')
