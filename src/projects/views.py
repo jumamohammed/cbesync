@@ -4,7 +4,8 @@ from .models import Project
 # Create your views here.
 def index(request):
     projects = Project.objects.all()
+    page_title = "Projects"
     context = {
-        'projects':projects
+        'page_title': page_title
     }
-    return render(request, "projects/index.html", context)
+    return render(request, "sync_apps/projects/index.html", context)

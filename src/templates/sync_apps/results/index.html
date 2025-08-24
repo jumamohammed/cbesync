@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+
+{% block head_title %} {{block.super}}-{{page_title}}  {% endblock head_title %}
+
+{% block content %}
+    <p>Results page</p>
+    {% include 'snippets/welcome.html' %}
+{% endblock content %}

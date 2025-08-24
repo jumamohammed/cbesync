@@ -4,7 +4,8 @@ from .models import Subject
 # Create your views here.
 def index(request):
     subjects = Subject.objects.all()
+    page_title = "Accounts"
     context = {
-        'subjects': subjects
+        'page_title': page_title
     }
-    return render(request, "subjects/index.html", context)
+    return render(request, "sync_apps/subjects/index.html", context)

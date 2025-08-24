@@ -4,7 +4,8 @@ from .models import Course
 # Create your views here.
 def index(request):
     courses = Course.objects.all()
+    page_title = "Courses"
     context = {
-        'courses':courses
+        'page_title': page_title
     }
-    return render(request, "courses/index.html", context)
+    return render(request, "sync_apps/courses/index.html", context)

@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>cbesync</title>
-</head>
-<body>
-    <h1>Welcome to CBESYNC</h1>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block head_title %} {{block.super}}-{{page_title}}  {% endblock head_title %}
+
+{% block content %}
+    <p>Root project page</p>
+    {% include 'snippets/welcome.html' %}
+{% endblock content %}
