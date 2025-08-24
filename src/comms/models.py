@@ -40,3 +40,53 @@ class Communication(models.Model):
     #8. ordering of the messager
     class Meta:
         ordering = ['-communication_creation_time']
+
+#communication group model
+#funtion to generate random but different communication ids
+def generate_unique_group_id():
+    from .models import CommunicationGroup#from comms.models import CommunicationGroup #commented out since from the same file
+    while True:
+        new_id = f"CGP-{uuid.uuid4().hex[:8].upper()}"
+        if not CommunicationGroup.objects.filter(communication_group_id=new_id).exists():
+            return new_id
+      
+class CommunicationGroup(models.Model):
+    #1. Inherited communication id for the group
+    communication_group_id = models.CharField(max_length=20,primary_key=True, default=generate_unique_group_id, help_text="Uique group ID")
+    #2. group details
+    communication_group_name = models.CharField(max_length=100, unique=True, help_text="Group name e.g. 'Grade 7 Parents'")
+    communication_group_description = models.TextField(null=True, blank=True, help_text="Details about the group")
+    #3. group owner details
+    communication_group_creator = models.ForeignKey('teachers.Teacher', to_field='teacher_id', on_delete=models.CASCADE, help_text="Creator (Teacher or School_Admin)")
+    # communication_group_creator_role = models.CharField(max_length=20, choices=[('Teacher', 'Teacher'), ('School_Admin', 'School_Admin')], help_text="Role of creator")
+    #4. group creation timestamp
+    communication_group_creation_date = models.DateTimeField(default=timezone.now, help_text="Date the group was created")
+
+    #5. return string for the group
+    def __str__(self):
+        return f"{self.communication_group_name} (Created by {self.communication_group_creator.teacher_role} {self.communication_group_creator.user.first_name})"
+
+    class Meta:
+        verbose_name = "Communication Group"
+        verbose_name_plural = "Communication Groups"
+        ordering = ['-communication_group_creation_date']
+
+#communication group members models to allow many to many
+class CommunicationGroupMember(models.Model):
+    #1. group where the member belongs to 
+    communicator_group = models.ForeignKey('comms.CommunicationGroup', to_field='communication_group_id', on_delete=models.CASCADE, related_name='members', help_text='The group of belonging')
+    #2. group member detail and roles
+    communicator_member_id = models.CharField(max_length=20, help_text="Member ID")
+    communicator_role = models.CharField(max_length=20, choices=[('Teacher', 'Teacher'),('Parent', 'Parent'),('Student', 'Student'), ('School_Admin', 'School_Admin'),])
+    communicator_status = models.CharField(max_length=20, choices=[('Admin', 'Admin'), ('Member', 'Member'), ], default='Member')
+    #3. Member.join.date
+    communicator_join_date = models.DateTimeField(default=timezone.now)
+
+    #4. return string for the  member model
+    def __str__(self):
+        return f"{self.communicator_role} {self.communicator_member_id} in {self.communicator_group.communication_group_name}"
+
+
+    #4. to avoid duplications
+    class Meta:
+        unique_together = ('communicator_group', 'communicator_member_id')
