@@ -1,5 +1,10 @@
 from django.shortcuts import render
+from .models import Parent
 
 # Create your views here.
 def index(request):
-    return render(request, "index.html", {})
+    parents = Parent.objects.prefetch_related("primay_students", "secondary_students").all()
+    context = {
+        'parents':parents
+    }
+    return render(request, "parents/index.html", context)

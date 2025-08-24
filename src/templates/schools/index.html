@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cbesync</title>
+</head>
+<body>
+    <h1>Welcome to CBESYNC</h1>
+    <h2>SCHOOLS ->> PAGE</h2>
+     <!--Reversed for the new to be on top-->
+    {% for school in schools reversed %}
+        <div class="school-head">
+            <h2>SCHOOL ID : {{ school.school_id }}</h2>
+            <h3>SCHOOL_DETAILS: {{ school.school_name }} : {{ school.school_code }}</h3>
+            
+            <!-- Teachers -->
+            <h4>Teachers</h4>
+            <ul>
+                {% for teacher in school.teachers.all %}
+                    <li>{{ teacher.teacher_id }} - {{ teacher.teacher_role }}</li>
+                {% empty %}
+                    <li>No teacher found</li>
+                {% endfor %}
+            </ul>
+
+            <!-- Classes -->
+            <h4>Classes</h4>
+            <ul>
+                {% for class in school.classes.all %}
+                    <li>{{ class.class_name }} (Level: {{ class.class_level }})</li>
+                {% empty %}
+                    <li>No class found</li>
+                {% endfor %}
+            </ul>
+
+            <!-- Students -->
+            <h4>Students</h4>
+            <ul>
+                {% for student in school.students.all %}
+                    <li>
+                        {{ student.student_id }} - {{ student.student_admission_number }}
+                    </li>
+                {% empty %}
+                    <li>No students found</li>
+                {% endfor %}
+            </ul>
+            <!--Parents-->
+            <h4>Parents</h4>
+            <ul>
+                {% for student in school.students.all %}
+                    <li>
+                        {{student.student_id}} ->> {{student.student_guardian1}} ->> {{student.student_guardian1.parent_id}} ->> {{student.student_guardian2}} ->> {{student.student_guardian2.parent_id}}
+                    </li>
+                {% empty %}
+                    <li>No Parent for any student</li>
+                {% endfor %}
+            </ul>
+            
+        </div>
+    {% endfor %}
+</body>
+</html>

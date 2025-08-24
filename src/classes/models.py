@@ -29,7 +29,7 @@ class SchoolClass(models.Model):
     CLASS_LEVEL_CHOICES = [ (1, '1'), (2, '2'), (3, '3'), (4, '4'), (5, '5'), (6, '6'), (7, '7'), (8, '8'), (9, '9'), (10, '10'), (11, '11'), (12, '12'), ]
     class_level = models.IntegerField(choices=CLASS_LEVEL_CHOICES, db_index=True,unique=True, help_text="Educational level e.g 7,8,9")
     #5. Class Teacher field
-    class_teacher = models.ForeignKey('teachers.Teacher', on_delete=models.SET_NULL, null=True, blank=True, related_name='classes', help_text="Teache assigned to the class")
+    class_teacher = models.ForeignKey('teachers.Teacher', on_delete=models.SET_NULL, null=True, blank=True, related_name='classes_t', help_text="Teache assigned to the class")
     #6. class capacity / number of students
     #use Student.objects.filter(student_class=...) to get in sync after prototype
     class_capacity = models.IntegerField(default=0, help_text="Current number of student in the class")

@@ -22,6 +22,7 @@ class Exam(models.Model):
     exam_id = models.CharField(max_length=20, primary_key=True, default=generate_unique_exam_id, help_text="Unique id for each exam")
     #2. exam foreign keys i.e class,course,student,teacher
     exam_student = models.ForeignKey('students.Student', to_field='student_id', null=True, on_delete=models.CASCADE, related_name='exams', help_text="Student assigned the exam.")
+    exam_school = models.ForeignKey('schools.School', to_field='school_id', on_delete=models.CASCADE,null=True, related_name='exams', help_text="The school the exam")
     exam_course = models.ForeignKey('courses.Course', to_field='course_id', on_delete=models.CASCADE, related_name='exams', help_text="The course the exam is linked to")
     exam_class = models.ForeignKey('classes.SchoolClass', to_field='class_id', on_delete=models.CASCADE, related_name='exams', help_text="Class of exams")
     exam_subject = models.ForeignKey('subjects.Subject', to_field='subject_id', on_delete=models.CASCADE,null=True, related_name='exams', help_text="The subject whose exam is")
