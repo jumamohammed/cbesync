@@ -14,6 +14,9 @@ def generate_unique_exam_id():
             return new_id
 
 # Create your models here.
+# ======================================
+# 1. Exams Model
+# ======================================
 class Exam(models.Model):
     #1. unique exam identifier
     exam_id = models.CharField(max_length=20, primary_key=True, default=generate_unique_exam_id, help_text="Unique id for each exam")

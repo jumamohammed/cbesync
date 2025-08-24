@@ -13,6 +13,9 @@ def generate_unique_cat_id():
             return new_id
 
 # Create your models here.
+# ======================================
+# 1. Cats Model
+# ======================================
 class Cat(models.Model):
     #1. the primary key for the table
     cat_id = models.CharField(max_length=20, primary_key=True, default=generate_unique_cat_id, help_text="A unique id for each cat")

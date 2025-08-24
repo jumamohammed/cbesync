@@ -15,6 +15,9 @@ def generate_unique_result_id():
             return new_id
 
 # Create your models here.
+# ======================================
+# 1. Results Model
+# ======================================
 class Result(models.Model):
     #1. random and unpredicatble result id but different for everyone
     result_id = models.CharField(primary_key=True,max_length=20, default=generate_unique_result_id, help_text="unique and unpreictable result id for results")

@@ -15,6 +15,9 @@ def generate_unique_student_id():
 
 
 # Create your models here.
+# ======================================
+# 1. Student Model
+# ======================================
 class Student(models.Model):
     #inherited user style from accounts
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, null=True, blank=True, help_text="User defined")
@@ -24,6 +27,8 @@ class Student(models.Model):
     student_school = models.ForeignKey('schools.School',to_field='school_id', on_delete=models.CASCADE, null=True, blank=True, related_name='students', help_text="the school the student belongs to")
     #3. The class of the student
     student_class = models.ForeignKey('classes.SchoolClass',to_field='class_id', on_delete=models.SET_NULL, null=True, blank=True, related_name='students', help_text="the class the student is currently enrolled in")
+    student_club = models.ForeignKey('clubs.Club',to_field='club_id', on_delete=models.SET_NULL, null=True, blank=True, related_name='students', help_text="the club the student is currently enrolled in")
+
     #4. Student admission no and assessmet no
     student_admission_number = models.CharField(max_length=30, unique=True, default="XXXXX", help_text="Unique number given to student after registration")
     student_assessment_number = models.CharField(max_length=20, unique=True, default="XXXXX", help_text="Unique number given to the student by the state")

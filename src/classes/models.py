@@ -12,6 +12,9 @@ def generate_unique_class_id():
             return new_id
 
 # Create your models here.
+# ======================================
+# 1. Classes(SchoolCLass) Model
+# ======================================
 
 #this is a class (table)
 class SchoolClass(models.Model):

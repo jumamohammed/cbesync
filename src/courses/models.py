@@ -10,6 +10,9 @@ def generate_unique_course_id():
         if not Course.objects.filter(course_id=new_id).exists():
             return new_id
 # Create your models here.
+# ======================================
+# 1. Courses Model
+# ======================================
 class Course(models.Model):
     #1. unique course id for the courses in the schools
     course_id = models.CharField(max_length=20, primary_key=True, default=generate_unique_course_id, editable=False, help_text="Unique course id for each in the school")

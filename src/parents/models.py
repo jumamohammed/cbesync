@@ -13,6 +13,9 @@ def generate_unique_parent_id():
             return new_id
 
 # Create your models here.
+# ======================================
+# 1. Parents Model
+# ======================================
 class Parent(models.Model):
     #Inherited user model for django allauth stuff
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, null=True, blank=True, help_text="inherited user account")

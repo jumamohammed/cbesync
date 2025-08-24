@@ -10,6 +10,9 @@ def generate_unique_communication_id():
         if not Communication.objects.filter(communication_id=new_id).exists():
             return new_id
 # Create your models here.
+# ======================================
+# 1. Communication Model
+# ======================================
 class Communication(models.Model):
     #1. Communication id for every communication in the table
     communication_id = models.CharField(max_length=20, primary_key=True, default=generate_unique_communication_id, help_text="Unique communication id for every comm in the table")
@@ -42,6 +45,9 @@ class Communication(models.Model):
         ordering = ['-communication_creation_time']
 
 #communication group model
+# ======================================
+# 1. CommunicationGroups Model
+# ======================================
 #funtion to generate random but different communication ids
 def generate_unique_group_id():
     from .models import CommunicationGroup#from comms.models import CommunicationGroup #commented out since from the same file
@@ -72,6 +78,9 @@ class CommunicationGroup(models.Model):
         ordering = ['-communication_group_creation_date']
 
 #communication group members models to allow many to many
+# ======================================
+# 1. CommunicationGroupMembers Model
+# ======================================
 class CommunicationGroupMember(models.Model):
     #1. group where the member belongs to 
     communicator_group = models.ForeignKey('comms.CommunicationGroup', to_field='communication_group_id', on_delete=models.CASCADE, related_name='members', help_text='The group of belonging')

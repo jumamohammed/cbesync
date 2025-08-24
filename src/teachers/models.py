@@ -11,6 +11,9 @@ def generate_unique_teacher_id():
         if not Teacher.objects.filter(teacher_id=new_id).exists():
             return new_id
 # Create your models here.
+# ======================================
+# 1. Teacher Model
+# ======================================
 class Teacher(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE) #linking to the account_main_use for allauth authentification and such
     #1. Teacher primary key. an autofield by default in django

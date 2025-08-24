@@ -12,6 +12,9 @@ def generate_unique_school_id():
             return new_id
 
 # Create your models here.
+# ======================================
+# 1. School Model
+# ======================================
 #this is a school class(table in short)
 class School(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)

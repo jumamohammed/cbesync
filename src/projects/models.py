@@ -13,6 +13,9 @@ def generate_unique_project_id():
             return new_id
 
 # Create your models here.
+# ======================================
+# 1. Project Model
+# ======================================
 class Project(models.Model):
     #1. Unique project id for each poject
     project_id = models.CharField(max_length=20, primary_key=True, default=generate_unique_project_id, help_text="Unique identifier for the project.")

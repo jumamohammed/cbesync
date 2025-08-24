@@ -12,6 +12,9 @@ def generate_unique_club_id():
 
 
 # Create your models here.
+# ======================================
+# 1. Clubs Model
+# ======================================
 class Club(models.Model):
     #1. club ID that is unique to every cub in the school
     club_id = models.CharField(primary_key=True, max_length=20, default=generate_unique_club_id ,editable=False, help_text="A unique identifier for every club in the school")
