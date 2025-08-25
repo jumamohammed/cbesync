@@ -1,8 +1,43 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block head_title %} {{block.super}}-{{page_title}}  {% endblock head_title %}
-
 {% block content %}
-    <p>Contact page</p>
-    {% include 'snippets/welcome.html' %}
+       
+    <!-- <div class="tw-absolute tw-top-0 tw-left-1/2 tw--translate-x-1/2 tw-flex 
+                tw-h-[100px] tw-w-full tw-max-w-[80%]">
+        <div class="header-gradient tw-h-full tw-w-full "></div>
+    </div> -->
+
+    <!--Navbar Header-->
+    {% include 'nav/navbar.html' %}
+
+        <section class="tw-flex tw-min-h-[100vh] tw-w-full tw-flex-col tw-place-content-center tw-place-items-center tw-p-[2%]">
+            <h3 class="reveal-up tw-text-4xl tw-font-medium tw-text-center max-md:tw-text-2xl" >
+                CbeSync TEAM
+            </h3>
+            <!-- Testimonials -->
+            <div class="tw-mt-20 tw-gap-10 tw-space-y-8  max-md:tw-columns-1 lg:tw-columns-2 xl:tw-columns-3">
+                <!--Put in a for loop for dynamic database fetch later-->
+                <div class="reveal-up tw-flex tw-h-fit tw-w-[350px] tw-break-inside-avoid tw-flex-col tw-gap-4 tw-rounded-lg tw-border-[1px] tw-bg-[#f6f7fb] dark:tw-bg-[#080808] dark:tw-border-[#1f2123] tw-p-4 max-lg:tw-w-[320px]">   
+                    <div class="tw-flex tw-place-items-center tw-gap-3">
+                        <div class="tw-h-[50px] tw-w-[50px] tw-overflow-hidden tw-rounded-full">
+                            <img src="{% static 'assets/images/people/man2.jpeg' %}" class="tw-h-full tw-w-full tw-object-cover" alt="man"/>
+                        </div>
+                        <div class="tw-flex tw-flex-col tw-gap-1">
+                            <div class="tw-font-semibold">Mohammed Juma</div>
+                            <div class="tw-text-gray-700 dark:tw-text-gray-300">Founder,<i>CEO</i> </div>
+                        </div>
+                    </div>
+
+                    <p class="tw-mt-4 tw-text-gray-800 dark:tw-text-gray-200">
+                        <div class="tw-font-serif">
+                            <i>Anyone who tries to make everyone happy is admirable</i>
+                        </div> 
+                    </p>
+                </div>
+
+               
+            </div>
+        </section>
+        
 {% endblock content %}

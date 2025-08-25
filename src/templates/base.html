@@ -1,19 +1,28 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!--Web title and icon-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="https://i.imgur.com/5A2VGlu.png" type="image/x-icon" />
     <title>{% block head_title %} CbeSync{% endblock head_title %} </title>
+
+    <!--Meta data-->
+    {% include 'base/meta.html' %}
+    
+    <!--Static files load-->
     {% include 'base/css.html' %}
 </head>
-<body>
-    {% include 'nav/navbar.html' %}
+<body class="tw-flex tw-min-h-[100vh] tw-flex-col tw-bg-[#fcfcfc] tw-text-black dark:tw-bg-black dark:tw-text-white">
     {% block content %}
         You can't see me!
     {% endblock content %}
 
     {% include 'base/js.html' %}
     {% include 'snippets/footer.html' %}
+    {% include 'base/scripts.html' %}
+
 </body>
 </html>
