@@ -26,6 +26,7 @@ SECRET_KEY = config("DJANGO_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 #DEBUG = str(os.environ.get("DJANGO_DEBUG")).lower() == "true"
 DEBUG = config("DJANGO_DEBUG",cast=bool,default=True)
+print( f"DB_URL:{DEBUG}")
 
 ALLOWED_HOSTS = [
     ".railway.app" #sample https://saas.railway.app
@@ -104,6 +105,19 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
+}
+
+CONN_MAX_AGE = config("CONN_MAX_AGE", cast=int, default=30)
+DATABASE_URL = config("DATABASE_URL", default = None)
+print( f"DB_URL:{DATABASE_URL}")
+if DATABASE_URL is not None:
+    import dj_database_url
+    DATABASES = {
+    "default": dj_database_url.config(
+        default=DATABASE_URL,
+        conn_max_age=30,
+        conn_health_checks=True,
+        )
 }
 
 
