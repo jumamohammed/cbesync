@@ -1,4 +1,10 @@
 venv/
+#ignore local staric file root cdn
+#simply local cdn
+local-cdn/
+
+#src/static/css --future ignore vendor files
+#src/static/scripts --future ignore vendor files cdn
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
