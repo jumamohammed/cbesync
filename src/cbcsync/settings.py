@@ -18,7 +18,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
+# See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist
+
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config("DJANGO_SECRET_KEY", default="0bz*ot_&3jwco6yckl!)eq)w+fcv9ga7lps8yysp6o(p_utejn")
@@ -36,6 +37,22 @@ if DEBUG:
         "127.0.0.1",
         "localhost"
     ]
+if not DEBUG:
+    #csrf forms setup to avoid csrf token erros
+    CSRF_TRUSTED_ORIGINS = [
+        'https://cbcsync-production.up.railway.app',  # or your custom domain if any
+    ]
+    # Ensure cookies are only sent over HTTPS
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
+
+    # Prevent client-side JS access to cookies
+    CSRF_COOKIE_HTTPONLY = True
+    SESSION_COOKIE_HTTPONLY = True
+
+    # Optional but helps with modern browsers
+    CSRF_COOKIE_SAMESITE = 'Lax'
+    SESSION_COOKIE_SAMESITE = 'Lax'
 
 
 # Application definition
