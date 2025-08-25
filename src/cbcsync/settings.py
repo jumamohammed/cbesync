@@ -68,6 +68,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware', #comment out when on cdn 
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -157,6 +158,8 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' #comment out when on cdn
+
 
 #django static files config, url, location dir, app preload dest
 STATIC_URL = 'static/'
@@ -164,15 +167,17 @@ STATICFILES_BASE_DIR = BASE_DIR / "static"
 STATICFILES_VENDOR_DIR = BASE_DIR / "vendors"
 
 #sources for python manage.py collect static
-STATICFILES_DIR = [
-    STATICFILES_BASE_DIR
+STATICFILES_DIRS = [
+    STATICFILES_BASE_DIR,
+    STATICFILES_VENDOR_DIR,
 ]
 
-#output for python manage.py collect static
-#local cdn -> prod cdn in future
-STATIC_ROOT = BASE_DIR.parent / "local-cdn"
-if not DEBUG:
-    STATIC_ROOT = BASE_DIR / "prod-cdn"
+# #output for python manage.py collect static
+# #local cdn -> prod cdn in future
+STATIC_ROOT = BASE_DIR / "staticfiles"
+# STATIC_ROOT = BASE_DIR.parent / "local-cdn"
+# if not DEBUG:
+#     STATIC_ROOT = BASE_DIR / "prod-cdn"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
