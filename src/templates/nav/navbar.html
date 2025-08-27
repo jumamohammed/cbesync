@@ -1,6 +1,6 @@
 {% load static %}
 <header class="lg:tw-px-4 tw-max-w-[100vw] tw-max-w-lg:tw-mr-auto max-lg:tw-top-0 tw-fixed tw-top-4 lg:tw-left-1/2 lg:tw--translate-x-1/2 tw-z-20 tw-flex tw-h-[60px] tw-w-full tw-text-gray-700 tw-bg-white dark:tw-text-gray-200 dark:tw-bg-[#17181b] tw-px-[3%] tw-rounded-md lg:tw-max-w-5xl tw-shadow-md dark:tw-shadow-gray-700 lg:tw-justify-around lg:!tw-backdrop-blur-lg lg:tw-opacity-[0.99]">
-    <a class="tw-flex tw-p-[4px] tw-gap-2 tw-place-items-center" href="#">
+    <a class="tw-flex tw-p-[4px] tw-gap-2 tw-place-items-center" href="{% url 'home' %}">
         <div class="tw-h-[30px] tw-max-w-[100px]">
             <img
                 src="{% static 'assets/logo/logo.png' %}"
@@ -27,11 +27,21 @@
                     <div class="tw-grid max-xl:tw-flex max-xl:tw-flex-col tw-justify-around tw-grid-cols-2 tw-w-full">
                         <a class="header-links tw-flex tw-text-left tw-gap-4 !tw-p-4" href="#">
                             <div class="tw-font-semibold tw-text-3xl">
+                                <i class="bi bi-globe"></i>
+                            </div>
+                            <div class="tw-flex tw-flex-col tw-gap-2">
+                                <div class="tw-text-lg tw-text-black dark:tw-text-white tw-font-medium">Flexibility</div>
+                                <p class="">Enables schools, teachers, and parents to share updates from anywhere in the world.</p>
+                            </div> 
+                        </a>
+
+                        <a class="header-links tw-flex tw-text-left tw-gap-4 !tw-p-4" href="#">
+                            <div class="tw-font-semibold tw-text-3xl">
                                 <i class="bi bi-list-columns-reverse"></i>
                             </div>
                             <div class="tw-flex tw-flex-col tw-gap-2">
-                                <div class="tw-text-lg tw-text-black dark:tw-text-white tw-font-medium">Prompt library </div>
-                                <p>Comes packed with pre-made prompt templates</p>
+                                <div class="tw-text-lg tw-text-black dark:tw-text-white tw-font-medium">Results Processing </div>
+                                <p>Performs all necessary academic calculations and automatically generates comprehensive performance reports.</p>
                             </div> 
                         </a>
 
@@ -40,56 +50,21 @@
                                 <i class="bi bi-grid-1x2-fill"></i>
                             </div>
                             <div class="tw-flex tw-flex-col tw-gap-2">
-                                <div class="tw-text-lg tw-text-black dark:tw-text-white tw-font-medium">Unified Interface </div>
-                                <p class="">Test multiple AI models in one interface</p>
+                                <div class="tw-text-lg tw-text-black dark:tw-text-white tw-font-medium">Unified Management </div>
+                                <p class="">Centralized system for managing teachers, students, and parents efficiently.</p>
                             </div> 
                         </a>
 
                         <a class="header-links tw-flex tw-text-left tw-gap-4 !tw-p-4" href="#">
                             <div class="tw-font-semibold tw-text-3xl">
-                                <i class="bi bi-globe"></i>
+                                <i class="bi bi-people"></i>
                             </div>
                             <div class="tw-flex tw-flex-col tw-gap-2">
-                                <div class="tw-text-lg tw-text-black dark:tw-text-white tw-font-medium">Realtime web search </div>
-                                <p class="">Search the internet in realtime</p>
+                                <div class="tw-text-lg tw-text-black dark:tw-text-white tw-font-medium">Parent Involvement</div>
+                                <p class="">Connects parents to their child’s school—anytime, anywhere—from results to communication.</p>
                             </div> 
                         </a>
-
-                        <a class="header-links tw-flex tw-text-left tw-gap-4 !tw-p-4" href="#">
-                            <div class="tw-font-semibold tw-text-3xl">
-                                <i class="bi bi-image-fill"></i>
-                            </div>
-                            <div class="tw-flex tw-flex-col tw-gap-2">
-                                <div class="tw-text-lg tw-text-black dark:tw-text-white tw-font-medium">
-                                    Image generation
-                                </div>
-                                <p class="">Generate images from prompts</p>
-                            </div> 
-                        </a>
-
-                        <a class="header-links tw-flex tw-text-left tw-gap-4 !tw-p-4" href="#">
-                            <div class="tw-font-semibold tw-text-3xl">
-                                <i class="bi bi-calendar-range"></i>
-                            </div>
-                            <div class="tw-flex tw-flex-col tw-gap-2">
-                                <div class="tw-text-lg tw-text-black dark:tw-text-white tw-font-medium">
-                                    History
-                                </div>
-                                <p class="">Continue from where you left off</p>
-                            </div> 
-                        </a>
-
-                        <a class="header-links tw-flex tw-text-left tw-gap-4 !tw-p-4" href="#">
-                            <div class="tw-font-semibold tw-text-3xl">
-                                <i class="bi bi-translate"></i>
-                            </div>
-                            <div class="tw-flex tw-flex-col tw-gap-2">
-                                <div class="tw-text-lg tw-text-black dark:tw-text-white tw-font-medium">
-                                    Multilingual
-                                </div>
-                                <p class="">Converse in multiple languages</p>
-                            </div> 
-                        </a>
+                        <!--Room for other services probablyy a for loop from the beginning-->
                     </div>           
                 </nav>
             </div>
