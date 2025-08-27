@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config("DJANGO_SECRET_KEY", default="0bz*ot_&3jwco6yckl!)eq)w+fcv9ga7lps8yysp6o(p_utejn")
+SECRET_KEY = config("DJANGO_SECRET_KEY")
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -81,6 +81,8 @@ INSTALLED_APPS = [
     'exams',
     'cats',
     'projects',
+    #management apps
+    'commando',
 ]
 
 MIDDLEWARE = [
@@ -180,6 +182,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' 
 #django static files config, url, location dir, app preload dest
 STATIC_URL = 'static/'
 STATICFILES_BASE_DIR = BASE_DIR / "static"
+STATICFILES_BASE_DIR.mkdir(exist_ok=True, parents=True)
 STATICFILES_VENDOR_DIR = BASE_DIR / "vendors"
 
 #sources for python manage.py collect static
@@ -190,10 +193,10 @@ STATICFILES_DIRS = [
 
 # #output for python manage.py collect static
 # #local cdn -> prod cdn in future
-STATIC_ROOT = BASE_DIR / "staticfiles"
-# STATIC_ROOT = BASE_DIR.parent / "local-cdn"
-# if not DEBUG:
-#     STATIC_ROOT = BASE_DIR / "prod-cdn"
+#STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_ROOT = BASE_DIR.parent / "local-cdn"
+if not DEBUG:
+    STATIC_ROOT = BASE_DIR / "prod-cdn"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
