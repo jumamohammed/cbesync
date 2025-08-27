@@ -55,7 +55,8 @@ ENV DJANGO_DEBUG=${DJANGO_DEBUG}
 # such as:
 RUN python manage.py collectstatic --noinput
 #a  fucntion to download the distant cdn file before the are loaded by collectstatic
-RUN python manage.py vendor_pull --noinput
+#RUN python manage.py vendor_pull --noinput
+RUN python manage.py vendor_pull 
 
 # set the Django default project name
 ARG PROJ_NAME="cbcsync"
