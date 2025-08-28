@@ -29,6 +29,8 @@ urlpatterns = [
     #process to login/register users
     path('login/', auth_views.login_view, name="login"),
     path('register/', auth_views.register_view, name="register"),
+    path('accounts/', include('allauth.urls')), #user login and signout
+
     #logged in users apps
     path('account/', include('accounts.urls')),
     path('assessment/', include('assessments.urls')),

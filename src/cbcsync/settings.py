@@ -103,6 +103,10 @@ INSTALLED_APPS = [
     'projects',
     #management apps
     'commando',
+    #thirdparty apps
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
 ]
 
 MIDDLEWARE = [
@@ -113,6 +117,7 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    "allauth.account.middleware.AccountMiddleware", #django allauth
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
@@ -177,10 +182,25 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+#Django all auth config
+ACCOUNT_LOGIN_METHODS={'email'}
+ACCOUNT_SIGNUP_FIELDS={'email*', 'password1*', 'password2*',}
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+AUTHENTICATION_BACKENDS = [
+    
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
 
+    # `allauth` specific authentication methods, such as login by email
+    'allauth.account.auth_backends.AuthenticationBackend',
+    
+]
+# Provider specific settings
+SOCIALACCOUNT_PROVIDERS = {}
+ACCOUNT_FORMS = {
+    'signup': 'accounts.forms.CustomSignupForm',
+}
 AUTH_USER_MODEL = 'accounts.CustomUser' #for avoiding default auth config
-ACCOUNT_SIGNUP_FORM_CLASS = 'accounts.forms.CustomSignupForm'
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/

@@ -16,9 +16,11 @@
     {% include 'base/css.html' %}
 </head>
 <body class="tw-flex tw-min-h-[100vh] tw-flex-col tw-bg-[#fcfcfc] tw-text-black dark:tw-bg-black dark:tw-text-white">
-    {% block content %}
-        You can't see me!
-    {% endblock content %}
+    <div class="container">
+        {% block content %}
+            You can't see me!
+        {% endblock content %}
+    </div>
 
     {% include 'base/js.html' %}
     {% include 'snippets/footer.html' %}
