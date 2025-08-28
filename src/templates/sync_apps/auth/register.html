@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block head_title %} {{block.super}}-{{page_title}}  {% endblock head_title %}
+
+{% block content %}
+    {% include 'nav/navbar.html' %}
+
+
+    <section  class="tw-relative tw-flex  tw-w-full tw-min-h-[100vh] max-lg:tw-min-h-[80vh] tw-flex-col tw-place-content-center tw-place-items-center tw-overflow-hidden" >   
+        <div>
+            <h2>Register ->> PAGE</h2><br>
+        </div>   
+        <form action="{% url 'register' %}" method="POST">
+            {%csrf_token %}
+                <p>Username</p>
+                <div><input type="text" name="username" placeholder="e.g johndoe"> </div><br>
+                <p>email</p>
+                <div><input type="email" name="email" placeholder="e.g johndoe@gmail.com"> </div><br>
+                <p>password</p>
+                <div><input type="text" name="password" placeholder="password"> </div><br>
+                <div><button type="submit">Register</button></div><br>
+            </form>
+        </section>
+    
+    
+{% endblock content %}

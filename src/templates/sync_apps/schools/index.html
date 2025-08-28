@@ -3,57 +3,66 @@
 {% block head_title %} {{block.super}}-{{page_title}}  {% endblock head_title %}
 
 {% block content %}
-    {% include 'snippets/welcome.html' %}
-    <h2>SCHOOLS ->> PAGE</h2>
-     <!--Reversed for the new to be on top, |truncatewords:20-->
-    {% for school in schools reversed %}
-        <div class="school-head">
-            <h2>SCHOOL ID : {{ school.school_id }}</h2>
-            <h3>SCHOOL_DETAILS: {{ school.school_name }} : {{ school.school_code }}</h3>
-            
-            <!-- Teachers -->
-            <h4>Teachers</h4>
-            <ul>
-                {% for teacher in school.teachers.all %}
-                    <li>{{ teacher.teacher_id }} - {{ teacher.teacher_role }}</li>
-                {% empty %}
-                    <li>No teacher found</li>
-                {% endfor %}
-            </ul>
+    {% include 'nav/navbar.html' %}
+    <!--Section-->
+    <section class="tw-relative tw-mt-10 tw-flex tw-min-h-[100vh] tw-w-full tw-max-w-[100vw] tw-flex-col tw-place-items-center lg:tw-p-6">
 
-            <!-- Classes -->
-            <h4>Classes</h4>
-            <ul>
-                {% for class in school.classes.all %}
-                    <li>{{ class.class_name }} (Level: {{ class.class_level }})</li>
-                {% empty %}
-                    <li>No class found</li>
-                {% endfor %}
-            </ul>
+        <div class="reveal-up tw-mt-[5%] tw-flex tw-h-full tw-w-full tw-place-content-center tw-gap-2 tw-p-4 max-lg:tw-max-w-full max-lg:tw-flex-col">
+            {% include 'snippets/welcome.html' %}
+            <h2>SCHOOLS ->> PAGE</h2>
+            <!--Reversed for the new to be on top, |truncatewords:20-->
+            {% for school in schools reversed %}
+                <div class="school-head">
+                    <h2>SCHOOL ID : {{ school.school_id }}</h2>
+                    <h3>SCHOOL_DETAILS: {{ school.school_name }} : {{ school.school_code }}</h3>
+                    
+                    <!-- Teachers -->
+                    <h4>Teachers</h4>
+                    <ul>
+                        {% for teacher in school.teachers.all %}
+                            <li>{{ teacher.teacher_id }} - {{ teacher.teacher_role }}</li>
+                        {% empty %}
+                            <li>No teacher found</li>
+                        {% endfor %}
+                    </ul>
 
-            <!-- Students -->
-            <h4>Students</h4>
-            <ul>
-                {% for student in school.students.all %}
-                    <li>
-                        {{ student.student_id }} - {{ student.student_admission_number }}
-                    </li>
-                {% empty %}
-                    <li>No students found</li>
-                {% endfor %}
-            </ul>
-            <!--Parents-->
-            <h4>Parents</h4>
-            <ul>
-                {% for student in school.students.all %}
-                    <li>
-                        {{student.student_id}} ->> {{student.student_guardian1}} ->> {{student.student_guardian1.parent_id}} ->> {{student.student_guardian2}} ->> {{student.student_guardian2.parent_id}}
-                    </li>
-                {% empty %}
-                    <li>No Parent for any student</li>
-                {% endfor %}
-            </ul>
-            
+                    <!-- Classes -->
+                    <h4>Classes</h4>
+                    <ul>
+                        {% for class in school.classes.all %}
+                            <li>{{ class.class_name }} (Level: {{ class.class_level }})</li>
+                        {% empty %}
+                            <li>No class found</li>
+                        {% endfor %}
+                    </ul>
+
+                    <!-- Students -->
+                    <h4>Students</h4>
+                    <ul>
+                        {% for student in school.students.all %}
+                            <li>
+                                {{ student.student_id }} - {{ student.student_admission_number }}
+                            </li>
+                        {% empty %}
+                            <li>No students found</li>
+                        {% endfor %}
+                    </ul>
+                    <!--Parents-->
+                    <h4>Parents</h4>
+                    <ul>
+                        {% for student in school.students.all %}
+                            <li>
+                                {{student.student_id}} ->> {{student.student_guardian1}} ->> {{student.student_guardian1.parent_id}} ->> {{student.student_guardian2}} ->> {{student.student_guardian2.parent_id}}
+                            </li>
+                        {% empty %}
+                            <li>No Parent for any student</li>
+                        {% endfor %}
+                    </ul>
+                    
+                </div>
+            {% endfor %}
         </div>
-    {% endfor %}
+    </section>
+
 {% endblock content %}
+    
