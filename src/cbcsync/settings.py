@@ -16,6 +16,26 @@ from decouple import config
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Default email config
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = config('EMAIL_HOST', cast=str, default="smtp.gmail.com")
+EMAIL_PORT = config('EMAIL_PORT', cast=int, default=587)
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool, default=True)  # use port 587
+EMAIL_USE_SSL = config('EMAIL_USE_SSL', cast=bool, default=False)  # use port 465
+EMAIL_HOST_USER = config('EMAIL_HOST_USER', cast=str, default=None)
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', cast=str, default=None)
+
+# Parse admin list from env (e.g. "Name:email,Name2:email2")
+ADMINS_ARRAY = config("ADMINS", default="")
+ADMINS = []
+
+for pair in ADMINS_ARRAY.split(","):
+    if ":" in pair:
+        name, email = pair.split(":", 1)
+        ADMINS.append((name.strip(), email.strip()))
+
+MANAGERS = ADMINS
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist
@@ -176,7 +196,13 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' #comment out when on cdn
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' #comment out when on cdn
+STORAGES = {
+    # ...
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
 
 #django static files config, url, location dir, app preload dest
