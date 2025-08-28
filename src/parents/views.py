@@ -3,9 +3,14 @@ from .models import Parent
 
 # Create your views here.
 def index(request):
-    parents = Parent.objects.prefetch_related("primay_students", "secondary_students").all()
     page_title = "Parents"
-    context = {
-        'page_title': page_title
-    }
+    if request.user.is_authenticated:
+        parents = Parent.objects.prefetch_related("primay_students", "secondary_students").all()
+        context = {
+            'page_title': page_title
+        }
+    else:
+        context = {
+            'page_title': page_title
+        }
     return render(request, "sync_apps/parents/index.html", context)

@@ -3,11 +3,16 @@ from .models import Communication, CommunicationGroup, CommunicationGroupMember
 
 # Create your views here.
 def index(request):
-    communications = Communication.objects.all()
-    communication_groups = CommunicationGroup.objects.prefetch_related("members").all()
-    communication_group_members = CommunicationGroupMember.objects.all()
     page_title = "Comms"
-    context = {
-        'page_title': page_title
-    }
+    if request.user.is_authenticated:
+        communications = Communication.objects.all()
+        communication_groups = CommunicationGroup.objects.prefetch_related("members").all()
+        communication_group_members = CommunicationGroupMember.objects.all()
+        context = {
+            'page_title': page_title
+        }
+    else:
+        context = {
+            'page_title': page_title
+        }
     return render(request, "sync_apps/comms/index.html", context)

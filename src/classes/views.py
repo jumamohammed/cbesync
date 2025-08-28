@@ -5,7 +5,12 @@ from .models import SchoolClass
 def index(request):
     classes = SchoolClass.objects.prefetch_related("students", "cats", "exams", "projects", "results", "subjects").all()
     page_title = "Classes"
-    context = {
-        'page_title': page_title
-    }
+    if request.user.is_authenticated:
+        context = {
+            'page_title': page_title
+        }
+    else:
+        context = {
+            'page_title': page_title
+        }
     return render(request, "sync_apps/classes/index.html", context)

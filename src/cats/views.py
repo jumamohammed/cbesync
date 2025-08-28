@@ -5,7 +5,12 @@ from .models import Cat
 def index(request):
     cats = Cat.objects.prefetch_related("results").all()
     page_title = "Cats"
-    context = {
-        'page_title': page_title
-    }
+    if request.user.is_authenticated:
+        context = {
+            'page_title': page_title
+        }
+    else:
+        context = {
+            'page_title': page_title
+        }
     return render(request, "sync_apps/cats/index.html", context)

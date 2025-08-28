@@ -5,7 +5,13 @@ from .models import Subject
 def index(request):
     subjects = Subject.objects.all()
     page_title = "Accounts"
-    context = {
-        'page_title': page_title
-    }
+    if request.user.is_authenticated:
+        subjects = Subject.objects.all()
+        context = {
+            'page_title': page_title
+        }
+    else:
+        context = {
+            'page_title': page_title
+        }
     return render(request, "sync_apps/subjects/index.html", context)

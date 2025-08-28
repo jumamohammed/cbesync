@@ -3,9 +3,14 @@ from .models import Result
 
 # Create your views here.
 def index(request):
-    results = Result.objects.all()
     page_title = "Results"
-    context = {
-        'page_title': page_title
-    }
+    if request.user.is_authenticated:
+        results = Result.objects.all()
+        context = {
+            'page_title': page_title
+        }
+    else:
+        context = {
+            'page_title': page_title
+        }
     return render(request, "sync_apps/results/index.html", context)

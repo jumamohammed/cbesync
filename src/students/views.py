@@ -3,10 +3,15 @@ from .models import Student
 
 # Create your views here.
 def index(request):
-    students = Student.objects.prefetch_related("exams", "cats", "projects", "results", "subjects").all()
     page_title = "Students"
-    context = {
-        'page_title': page_title,
-        'students':students
-    }
+    if request.user.is_authenticated:
+        students = Student.objects.prefetch_related("exams", "cats", "projects", "results", "subjects").all()
+        context = {
+            'page_title': page_title,
+            'students':students
+        }
+    else:
+        context = {
+            'page_title': page_title
+        }
     return render(request, "sync_apps/students/index.html", context)
