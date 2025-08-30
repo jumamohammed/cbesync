@@ -36,7 +36,7 @@ class School(models.Model):
     school_admins = models.TextField(help_text="Comma separated list of admins username/emails-simplified for now")
     #7.Location fields
     school_county = models.CharField(max_length=50, help_text="County where the school is located.")
-    school_subcouty = models.CharField(max_length=50, help_text="Sub-county for finer location granularity.")
+    school_subcounty = models.CharField(max_length=50, help_text="Sub-county for finer location granularity.")
     school_ward = models.CharField(max_length=50, blank=True, null=True, help_text="Optional ward fill for zonal exams management")
     school_location = models.CharField(max_length=255, help_text="Location of school residence.")
     #8. Contact fields

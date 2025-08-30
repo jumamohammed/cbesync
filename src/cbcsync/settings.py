@@ -57,6 +57,9 @@ if DEBUG:
         "127.0.0.1",
         "localhost"
     ]
+    CSRF_TRUSTED_ORIGINS = [
+        'http://localhost', 'http://127.0.0.1',  # local host management
+    ]
 if not DEBUG:
     #csrf forms setup to avoid csrf token erros
     CSRF_TRUSTED_ORIGINS = [

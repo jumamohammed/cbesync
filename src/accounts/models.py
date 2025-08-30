@@ -6,14 +6,19 @@ from django.contrib.auth.models import AbstractUser
 
 #this is a custom user class or rather table for scalability to advanced types
 class CustomUser(AbstractUser):
+    SCHOOL = 'school'
+    TEACHER = 'teacher'
+    STUDENT = 'student'
+    PARENT = 'parent'
+    SysAdmin = 'sysadmin'
     USER_TYPE_CHOICES = (
-            ('teacher', 'Teacher'),
-            ('student', 'Student'),
-            ('parent', 'Parent'),
+            (TEACHER, 'Teacher'),
+            (STUDENT, 'Student'),
+            (PARENT, 'Parent'),
             ('SysAdmin', 'SysAdmin'),
         )
     USER_TYPE_CHOICES1 = (
-            ('school', 'School'),
+            (SCHOOL, 'School'),
         )
     user_type = models.CharField(max_length=10, choices=USER_TYPE_CHOICES, help_text="Usertype selection for allauth modularity")
 
