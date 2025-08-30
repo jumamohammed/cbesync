@@ -22,19 +22,21 @@ class CustomSignupForm(SignupForm):
     school_phone = forms.CharField(required=False)
     school_principal = forms.CharField(required=False)
 
+    #Custom form validations
     def clean(self):
         cleaned_data = super().clean()
         user_type = cleaned_data.get('user_type')
 
+        # If the registered user is a school, validate the fields
         if user_type == CustomUser.SCHOOL:
             required_fields = [
                 'school_code', 'school_name', 'school_type', 'school_category',
                 'school_ownership', 'school_admins', 'school_county', 'school_subcounty',
-                'school_ward', 'school_location', 'school_phone', 'school_principal'
+                'school_location', 'school_phone', 'school_principal'
             ]
             for field in required_fields:
                 if not cleaned_data.get(field):
-                    self.add_error(field, "This field is required for school user registration.")
+                    self.add_error(field, f"{field.replace('_', ' ').capitalize()} is required for school registration.")
 
         return cleaned_data
 
@@ -44,24 +46,6 @@ class CustomSignupForm(SignupForm):
         user = super().save(request)
         user.user_type = self.cleaned_data['user_type']
         user.save()
-        
-        if user.user_type == CustomUser.SCHOOL:
-            # Create the associated School record
-            School.objects.create(
-                user=user,
-                school_code=self.cleaned_data['school_code'],
-                school_name=self.cleaned_data['school_name'],
-                school_type=self.cleaned_data['school_type'],
-                school_category=self.cleaned_data['school_category'],
-                school_ownership=self.cleaned_data['school_ownership'],
-                school_admins=self.cleaned_data['school_admins'],
-                school_county=self.cleaned_data['school_county'],
-                school_subcounty=self.cleaned_data['school_subcounty'],
-                school_ward=self.cleaned_data.get('school_ward', ''),
-                school_location=self.cleaned_data['school_location'],
-                school_phone=self.cleaned_data['school_phone'],
-                school_principal=self.cleaned_data['school_principal'],
-                # school_status defaults to "Pending"
-            )
 
+        # profile creation or update handled in the signal
         return user
