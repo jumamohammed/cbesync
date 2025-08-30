@@ -8,6 +8,7 @@ logger = logging.getLogger(__name__)
 
 
 # Create your views here.
+@login_required
 def home(request):
     # Log the file access
     logger.info(f"Connected user from IP: {request.META.get('REMOTE_ADDR')}")
@@ -23,6 +24,13 @@ def home(request):
             'page_title': page_title
         }
         return render(request, "root/index.html", context)
+
+def index(request):
+    page_title = "Home"
+    context = {
+        'page_title': page_title
+    }
+    return render(request, "root/index.html", context)
 
 #about page views
 def about(request):

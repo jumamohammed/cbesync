@@ -22,7 +22,8 @@ from auth import views as auth_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     #logged out user access
-    path('',views.home, name="home"),
+    path('',views.index, name="home"),
+    path('home/',views.home, name="home_redirect"),
     path('about/',views.about, name="about"),
     path('contact/',views.contact, name="contact"),
     path('services/',views.services, name="services"),

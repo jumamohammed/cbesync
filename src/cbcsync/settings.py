@@ -223,7 +223,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 #Django all auth config
-#LOGIN_REDIRECT_URL = "/"
+LOGIN_REDIRECT_URL = 'home_redirect'
 ACCOUNT_LOGIN_METHODS={'email'}
 ACCOUNT_SIGNUP_FIELDS={'email*', 'password1*', 'password2*',}
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
