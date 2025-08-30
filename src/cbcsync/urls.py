@@ -29,7 +29,7 @@ urlpatterns = [
     #process to login/register users
     path('login/', auth_views.login_view, name="login"),
     path('register/', auth_views.register_view, name="register"),
-    path('accounts/', include('allauth.urls')), #user login and signout
+    path('accounts/', include('allauth.urls')), #login user and logout
 
     #logged in users apps
     path('account/', include('accounts.urls')),

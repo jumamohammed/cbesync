@@ -11,6 +11,7 @@ class CustomUser(AbstractUser):
     STUDENT = 'student'
     PARENT = 'parent'
     SysAdmin = 'sysadmin'
+    
     USER_TYPE_CHOICES = (
             (TEACHER, 'Teacher'),
             (STUDENT, 'Student'),
