@@ -12,9 +12,44 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 from decouple import config
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+#django logging
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'level': 'INFO',  # Log INFO level messages
+            'class': 'logging.StreamHandler',
+            'formatter': 'detailed',
+        },
+    },
+    'formatters': {
+        'detailed': {
+            'format': '{levelname} {asctime} {message}',
+            'style': '{',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO',  # Capture info-level logs
+            'propagate': True,
+        },
+        # Log file access details
+        'accounts': {
+            'handlers': ['console'],
+            'level': 'INFO',  # Capture info-level logs for this app
+            'propagate': False,
+        },
+    },
+}
+
+
 
 # Default email config
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
@@ -122,6 +157,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     "allauth.account.middleware.AccountMiddleware", #django allauth
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    #ip middleware custom for security
+    'accounts.middleware.LogUserIPAddressMiddleware', 
 ]
 
 ROOT_URLCONF = 'cbcsync.urls'
@@ -186,6 +223,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 #Django all auth config
+#LOGIN_REDIRECT_URL = "/"
 ACCOUNT_LOGIN_METHODS={'email'}
 ACCOUNT_SIGNUP_FIELDS={'email*', 'password1*', 'password2*',}
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"

@@ -1,7 +1,10 @@
-from django.shortcuts import render
 from .models import Club
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+
 
 # Create your views here.
+@login_required
 def index(request):
     clubs = Club.objects.prefetch_related("students").all()
     page_title = "Clubs"

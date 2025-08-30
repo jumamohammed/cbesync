@@ -1,7 +1,10 @@
-from django.shortcuts import render
 from .models import SchoolClass
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+
 
 # Create your views here.
+@login_required
 def index(request):
     classes = SchoolClass.objects.prefetch_related("students", "cats", "exams", "projects", "results", "subjects").all()
     page_title = "Classes"

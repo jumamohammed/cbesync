@@ -1,4 +1,5 @@
 from allauth.account.signals import user_signed_up, user_logged_in
+from django.urls import reverse
 from django.dispatch import receiver
 from accounts.models import CustomUser
 from schools.models import School
@@ -52,16 +53,23 @@ def create_profile(request, user, **kwargs):
 @receiver(user_logged_in)
 def redirect_based_on_user_type(sender, request, user, **kwargs):
     """
-    Redirects user after successful login based on their user_type.
+    Store the redirection URL in the session after successful login based on user_type.
     """
-    if user.user_type == CustomUser.SCHOOL:
-        return redirect('schools:dashboard')  # Redirect to school dashboard
-    
-    elif user.user_type == CustomUser.STUDENT:
-        return redirect('students:dashboard')  # Redirect to student dashboard
-    
-    elif user.user_type == CustomUser.TEACHER:
-        return redirect('teachers:dashboard')  # Redirect to teacher dashboard
-    
-    # Default case for other user types or unexpected ones
-    return redirect('home')  # Redirect to the home page
+    if user.is_authenticated:
+        user_type = user.user_type  # Fetch from the user object      
+        # Store the redirection URL based on the user type
+        if user_type == CustomUser.SCHOOL:
+            redirect_url = reverse('schools:dashboard')
+            print(f'Redirecting to: {redirect_url}')
+            request.session['redirect_url'] = redirect_url  # Store URL in session
+        elif user_type == CustomUser.STUDENT:
+            redirect_url = reverse('students:dashboard')
+            request.session['redirect_url'] = redirect_url
+        elif user_type == CustomUser.TEACHER:
+            redirect_url = reverse('teachers:dashboard')
+            request.session['redirect_url'] = redirect_url
+        elif user_type == CustomUser.PARENT:
+            redirect_url = reverse('parents:dashboard')
+            request.session['redirect_url'] = redirect_url
+        else:
+            request.session['redirect_url'] = reverse('home')
