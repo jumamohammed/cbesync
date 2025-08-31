@@ -6,6 +6,7 @@ from schools.models import School
 from teachers.models import Teacher
 from students.models import Student
 from parents.models import Parent
+from django.db import IntegrityError
 import logging
 #secifics for auth redirections
 from django.shortcuts import redirect
@@ -16,35 +17,41 @@ logger = logging.getLogger(__name__)
 @receiver(user_signed_up)
 def create_profile(request, user, **kwargs):
     try:
-        # Check the user type and create the corresponding profile
         if user.user_type == CustomUser.SCHOOL:
-            # For schools, you might want to ensure that required school fields are set before creating
-            school = School.objects.create(user=user)
-            logger.info(f"Created a new School profile for {user.email}")
-        
+            _, created = School.objects.get_or_create(user=user)
+            if created:
+                logger.info(f"Created a new School profile for {user.email}")
+            else:
+                logger.info(f"School profile already exists for {user.email}")
+
         elif user.user_type == CustomUser.TEACHER:
-            # You might want to validate teacher-specific fields here
-            teacher = Teacher.objects.create(user=user)
-            logger.info(f"Created a new Teacher profile for {user.email}")
-        
+            _, created = Teacher.objects.get_or_create(user=user)
+            if created:
+                logger.info(f"Created a new Teacher profile for {user.email}")
+            else:
+                logger.info(f"Teacher profile already exists for {user.email}")
+
         elif user.user_type == CustomUser.STUDENT:
-            # Ensure student-specific fields are set if necessary
-            student = Student.objects.create(user=user)
-            logger.info(f"Created a new Student profile for {user.email}")
-        
+            _, created = Student.objects.get_or_create(user=user)
+            if created:
+                logger.info(f"Created a new Student profile for {user.email}")
+            else:
+                logger.info(f"Student profile already exists for {user.email}")
+
         elif user.user_type == CustomUser.PARENT:
-            # Validate parent's data if required
-            parent = Parent.objects.create(user=user)
-            logger.info(f"Created a new Parent profile for {user.email}")
-        
+            _, created = Parent.objects.get_or_create(user=user)
+            if created:
+                logger.info(f"Created a new Parent profile for {user.email}")
+            else:
+                logger.info(f"Parent profile already exists for {user.email}")
+
         else:
-            # If an unknown user type is found, log it as a warning
             logger.warning(f"Unknown user type {user.user_type} for user {user.email}")
-        
+
+    except IntegrityError as e:
+        logger.error(f"IntegrityError during profile creation for {user.email}: {str(e)}")
     except Exception as e:
-        # Log any error that happens during profile creation
         logger.error(f"Error creating profile for user {user.email}: {str(e)}")
-        # Optionally, handle the error (e.g., send an email to admins, show error to user, etc.)
 
 
 
