@@ -104,7 +104,8 @@ if DEBUG:
 if not DEBUG:
     #csrf forms setup to avoid csrf token erros
     CSRF_TRUSTED_ORIGINS = [
-        'https://cbcsync-production.up.railway.app',  # or your custom domain if any
+        'https://cbcsync-production.up.railway.app',
+        'https://cbcsync.onrender.com',  # or your custom domain if any
     ]
     # Ensure cookies are only sent over HTTPS
     CSRF_COOKIE_SECURE = True
