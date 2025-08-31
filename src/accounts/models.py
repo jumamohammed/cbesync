@@ -1,18 +1,18 @@
 from django.db import models, connection
-from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import AbstractUser
 import uuid
 
-#function to check tables' existence
+# Function to check if table exists
 def table_exists(table_name):
     return table_name in connection.introspection.table_names()
-#function to generate unique user id
+
+# Function to generate unique user ID
 def generate_unique_user_id():
-    new_id = f"USR-{uuid.uuid4().hex[:10].upper()}"
+    new_id = uuid.uuid4()
     if table_exists("accounts_customuser"):
         from .models import CustomUser
-        while CustomUser.objects.filter(user_id=new_id).exists():
-            new_id = f"USR-{uuid.uuid4().hex[:10].upper()}"
+        while CustomUser.objects.filter(id=new_id).exists():
+            new_id = uuid.uuid4() 
     return new_id
 
 # Create your models here
@@ -35,7 +35,7 @@ class CustomUser(AbstractUser):
     USER_TYPE_CHOICES1 = (
             (SCHOOL, 'School'),
         )
-    #primary key custom and teh field in every model
-    user_id = models.CharField(primary_key=True, max_length=20, default=generate_unique_user_id, editable=False, help_text="Unique User id")
-    user_type = models.CharField(max_length=10, choices=USER_TYPE_CHOICES, help_text="Usertype selection for allauth modularity")
-
+ # Primary key
+    id = models.UUIDField(primary_key=True, default=generate_unique_user_id, editable=False)
+    
+    user_type = models.CharField(max_length=10, choices=USER_TYPE_CHOICES,default=SCHOOL, help_text="User type selection for allauth modularity")
