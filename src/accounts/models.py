@@ -1,15 +1,19 @@
-from django.db import models
+from django.db import models, connection
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import AbstractUser
 import uuid
 
-#function to generate unique user is
+#function to check tables' existence
+def table_exists(table_name):
+    return table_name in connection.introspection.table_names()
+#function to generate unique user id
 def generate_unique_user_id():
-    from .models import CustomUser
-    while True:
-        new_id = f"USR-{uuid.uuid4().hex[:10].upper()}"
-        if not CustomUser.objects.filter(user_id=new_id).exists():
-            return new_id
+    new_id = f"USR-{uuid.uuid4().hex[:10].upper()}"
+    if table_exists("accounts_customuser"):
+        from .models import CustomUser
+        while CustomUser.objects.filter(user_id=new_id).exists():
+            new_id = f"USR-{uuid.uuid4().hex[:10].upper()}"
+    return new_id
 
 # Create your models here
 
