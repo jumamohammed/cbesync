@@ -97,7 +97,6 @@ if DEBUG:
     ALLOWED_HOSTS += [
         "127.0.0.1",
         "localhost",
-        "192.168.1.11"
     ]
     CSRF_TRUSTED_ORIGINS = [
         'http://localhost', 'http://127.0.0.1',  # local host management
@@ -234,6 +233,8 @@ LOGIN_REDIRECT_URL = 'home_redirect'
 ACCOUNT_LOGIN_METHODS={'email'}
 ACCOUNT_SIGNUP_FIELDS={'email*', 'password1*', 'password2*',}
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED = True
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1  # Link expires after 1 day
 AUTHENTICATION_BACKENDS = [
     
     # Needed to login by username in Django admin, regardless of `allauth`

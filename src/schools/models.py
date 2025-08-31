@@ -43,7 +43,7 @@ class School(models.Model):
     # school_email = models.EmailField(max_length=100, help_text="Official school email")
     school_phone = models.CharField(max_length=20, help_text="Official  School tell NO.")
     #9. School status in the site
-    STATUS_CHOICES = [ ('Pending', 'Pending Validation'), ('Active', 'Active'), ('Suspended', 'Suspended')]
+    STATUS_CHOICES = [ ('Pending', 'Pending Validation'), ('Active', 'Verified'), ('Suspended', 'Suspended')]
     school_status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Pending', help_text="School_status on the platform e.g Verified")
     #10. School name(topadmin)
     school_principal = models.CharField(max_length=100, help_text="Name of the toplevel Admin")
