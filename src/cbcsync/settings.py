@@ -244,6 +244,8 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
     
 ]
+SITE_ID = 1
+
 # Provider specific settings
 SOCIALACCOUNT_PROVIDERS = {}
 ACCOUNT_FORMS = {
