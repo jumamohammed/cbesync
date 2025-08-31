@@ -41,11 +41,17 @@ LOGGING = {
             'propagate': True,
         },
         # Log file access details
-        'accounts': {
+        'accounts.middleware': {
             'handlers': ['console'],
             'level': 'INFO',  # Capture info-level logs for this app
             'propagate': False,
         },
+        #accounts.view to log hompage visits
+        'accounts.views':{
+            'handlers':['console'],
+            'level':'INFO',
+            'propagate':False,
+        }
     },
 }
 
@@ -90,7 +96,8 @@ ALLOWED_HOSTS = [
 if DEBUG:
     ALLOWED_HOSTS += [
         "127.0.0.1",
-        "localhost"
+        "localhost",
+        "192.168.1.11"
     ]
     CSRF_TRUSTED_ORIGINS = [
         'http://localhost', 'http://127.0.0.1',  # local host management

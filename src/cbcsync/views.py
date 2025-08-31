@@ -1,18 +1,23 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-import logging
-from django.http import HttpResponse
-import os
-logger = logging.getLogger(__name__)
+                # import logging
+                # from django.http import HttpResponse
+                # import os
+                # logger = logging.getLogger("accounts.views")
 
-
-
+                # #fucntion to simplif ip capture
+                # def ipread(request):
+                #     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+                #     ip = x_forwarded_for.split(',')[0].strip() if x_forwarded_for else request.META.get('REMOTE_ADDR', '')
+                #     if request.user.is_authenticated:
+                #         logger.info(f"Logged in user from IP: {ip}")
+                #     else:
+                #         logger.info(f"Unauthenticated user from IP: {ip}")    
 # Create your views here.
 @login_required
 def home(request):
-    # Log the file access
-    logger.info(f"Connected user from IP: {request.META.get('REMOTE_ADDR')}")
-
+                # #home view logger
+                # ipread(request)
     # Check if there's a stored redirect URL in the session
     redirect_url = request.session.pop('redirect_url', None)  # Pop to prevent it from being reused
     
@@ -26,6 +31,8 @@ def home(request):
         return render(request, "root/index.html", context)
 
 def index(request):
+                # #home view logger
+                # ipread(request)
     page_title = "Home"
     context = {
         'page_title': page_title
