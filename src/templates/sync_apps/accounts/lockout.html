@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block head_title %} {{block.super}}-Lockout  {% endblock head_title %}
+
+{% block content %}
+{% include 'nav/navbar.html' %}
+    <h1>Account locked</h1><br>
+    <p>Hi {{ username }}, you have been locked out due to too many failed login attempts.</p>
+    <p>You can try logging in again after: <strong>{{ cooloff_time }}</strong></p>
+
+    <p>Lockout duration: {{ cooloff_timedelta }}</p>
+    <p>Allowed failures before lockout: {{ failure_limit }}</p>
+
+    <p>If you believe this is a mistake, please contact support.</p>
+{% endblock content %}

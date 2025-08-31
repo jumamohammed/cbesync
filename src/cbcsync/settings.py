@@ -153,6 +153,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'axes', #for login security
 ]
 
 MIDDLEWARE = [
@@ -166,7 +167,9 @@ MIDDLEWARE = [
     "allauth.account.middleware.AccountMiddleware", #django allauth
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     #ip middleware custom for security
-    'accounts.middleware.LogUserIPAddressMiddleware', 
+    'accounts.middleware.LogUserIPAddressMiddleware',
+    #axes to format lockout messages and render lockout responses
+    'axes.middleware.AxesMiddleware',
 ]
 
 ROOT_URLCONF = 'cbcsync.urls'
@@ -235,9 +238,22 @@ LOGIN_REDIRECT_URL = 'home_redirect'
 ACCOUNT_LOGIN_METHODS={'email'}
 ACCOUNT_SIGNUP_FIELDS={'email*', 'password1*', 'password2*',}
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
-ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED = True
+ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED = True #capture max attempts later on
+ACCOUNT_EMAIL_VERIFICATION_BY_CODE_MAX_ATTEMPTS = 3 # give 3 max code attempts
+ACCOUNT_EMAIL_VERIFICATION_BY_CODE_TIMEOUT = 600 #10 minutes timeout for verification
+ACCOUNT_REAUTHENTICATION_REQUIRED = True # for sensitive reauths e.g email change/password
+ACCOUNT_EMAIL_SUBJECT_PREFIX = ['CbeSync']
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1  # Link expires after 1 day
+#django axes for brute force protection
+AXES_LOCKOUT_PARAMETERS = ["ip_address"]
+AXES_COOLOFF_TIME = 2 #number of hours before the locked out user can login
+AXES_LOCKOUT_TEMPLATE = 'sync_apps/accounts/lockout.html'
+AXES_IP_BLACKLIST = [] #Instant / permanent lockout from access
+AXES_ENABLE_ACCESS_FAILURE_LOG = True #Every fail attempt to signin is logged
+
 AUTHENTICATION_BACKENDS = [
+    # AxesStandaloneBackend should be the first backend in the AUTHENTICATION_BACKENDS list.
+    'axes.backends.AxesStandaloneBackend',
     
     # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
