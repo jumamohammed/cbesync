@@ -53,7 +53,7 @@ ENV DJANGO_DEBUG=${DJANGO_DEBUG}
 # database isn't available during build
 # run any other commands that do not need the database
 # such as:
-RUN python manage.py collectstatic --noinput
+#RUN python manage.py collectstatic --noinput
 #a  fucntion to download the distant cdn file before the are loaded by collectstatic
 #RUN python manage.py vendor_pull --noinput -> later move to django storage to suppor tupload and download
 RUN python manage.py vendor_pull 

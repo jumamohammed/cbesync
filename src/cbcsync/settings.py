@@ -295,10 +295,10 @@ USE_TZ = True
 STORAGES = {
     # ...
     "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
-#whitenoise.storage.CompressedManifestStaticFilesStorage
+
 
 #django static files config, url, location dir, app preload dest
 STATIC_URL = 'static/'
