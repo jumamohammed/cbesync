@@ -130,6 +130,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     #my apps for the project
     'accounts',
     'assessments',
@@ -150,11 +151,15 @@ INSTALLED_APPS = [
     #management apps
     'commando',
     #thirdparty apps
+    'allauth_ui',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'widget_tweaks',
+    'slippers',
     'axes', #for login security
 ]
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -262,7 +267,6 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
     
 ]
-SITE_ID = 1
 
 # Provider specific settings
 SOCIALACCOUNT_PROVIDERS = {}

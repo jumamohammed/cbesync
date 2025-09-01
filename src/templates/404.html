@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head_title %} {{block.super}}-Page-Not-Found  {% endblock head_title %}
+{% block content %}
+       
+    <!-- <div class="tw-absolute tw-top-0 tw-left-1/2 tw--translate-x-1/2 tw-flex 
+                tw-h-[100px] tw-w-full tw-max-w-[80%]">
+        <div class="header-gradient tw-h-full tw-w-full "></div>
+    </div> -->
+
+    <!--Navbar Header-->
+    {% include 'nav/navbar.html' %}
+
+        <section class="tw-flex tw-min-h-[100vh] tw-w-full tw-flex-col tw-place-content-center tw-place-items-center tw-p-[2%]">
+            <h3 class="reveal-up tw-text-4xl tw-font-medium tw-text-center max-md:tw-text-2xl" >
+                CbeSync TEAM
+            </h3>
+            <!--Error page not found-->
+            <div>
+                <h1>
+                    The page you are looking for is not available,<br>
+                    but I'm a bit curious about how you ended up here😂
+                    so please allow me to log you😂! <br>if you are bored dm we can talk😂
+                </h1>
+            </div>
+
+               
+            </div>
+        </section>
+        
+{% endblock content %}

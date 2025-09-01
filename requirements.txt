@@ -10,3 +10,7 @@ ua-parser
 user-agents
 django-axes #for login security
 django-axes[ipware]
+#for aesthetics
+django-allauth-ui
+django-widget-tweaks
+slippers

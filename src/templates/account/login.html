@@ -1,80 +1,61 @@
 {% extends "base.html" %}
 {% load i18n %}
-{% load allauth account %}
-{% block head_title %}
-    {% trans "Sign In" %}
-{% endblock head_title %}
+{% load allauth_ui %}
+{% load widget_tweaks %}
+{% block head_title %} {{block.super}}-Login  {% endblock head_title %}
 {% block content %}
+{% include 'nav/navbar.html' %}
 
-    {% include 'nav/navbar.html' %}
-    <section  class="tw-relative tw-flex  tw-w-full tw-min-h-[100vh] max-lg:tw-min-h-[80vh] tw-flex-col tw-place-content-center tw-place-items-center tw-overflow-hidden" >   
-       <!--Form header-->
-        {% element h1 %}
-            {% trans "Sign In" %}
-        {% endelement %} 
-        <!--Custom if not google or any login-->
-        {% if not SOCIALACCOUNT_ONLY %}
-            {% setvar link %}
-                <a href="{{ signup_url }}">
-                {% endsetvar %}
-                {% setvar end_link %}
-                </a>
-            {% endsetvar %}
-            {% element p %}
-                {% blocktranslate %}If you have not created an account yet, then please {{ link }}sign up{{ end_link }} first.{% endblocktranslate %}
-            {% endelement %}
-            {% url 'account_login' as login_url %}
-            {% element form form=form method="post" action=login_url tags="entrance,login" %}
-                {% slot body %}
-                    {% csrf_token %}
-                    {% element fields form=form unlabeled=True %}
-                    {% endelement %}
-                    {{ redirect_field }}
-                {% endslot %}
-                {% slot actions %}
-                    {% element button type="submit" tags="prominent,login" %}
-                        {% trans "Sign In" %}
-                    {% endelement %}
-                {% endslot %}
-            {% endelement %}
-        {% endif %}
-        <!--If login by code is enabled-->
-        {% if LOGIN_BY_CODE_ENABLED or PASSKEY_LOGIN_ENABLED %}
-            {% element hr %}
-            {% endelement %}
-            {% element button_group vertical=True %}
-                {% if PASSKEY_LOGIN_ENABLED %}
-                    {% element button type="submit" form="mfa_login" id="passkey_login" tags="prominent,login,outline,primary" %}
-                        {% trans "Sign in with a passkey" %}
-                    {% endelement %}
-                {% endif %}
-                {% if LOGIN_BY_CODE_ENABLED %}
-                    {% element button href=request_login_code_url tags="prominent,login,outline,primary" %}
-                        {% trans "Send me a sign-in code" %}
-                    {% endelement %}
-                {% endif %}
-            {% endelement %}
-        {% endif %}
-        <!--If social account enabled-->
-        {% if SOCIALACCOUNT_ENABLED %}
-            {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
-        {% endif %}
-        <!--Extra form part-->
-        {% block extra_body %}
-            {{ block.super }}
-            {% if PASSKEY_LOGIN_ENABLED %}
-                {% include "mfa/webauthn/snippets/login_script.html" with button_id="passkey_login" %}
-            {% endif %}
-        {% endblock %}        
+    <section class="tw-flex tw-min-h-[100vh] tw-w-full tw-flex-col tw-place-content-center tw-place-items-center tw-p-[2%]">
+            <h3 class="reveal-up tw-text-4xl tw-font-medium tw-text-center max-md:tw-text-2xl" >
+                Login
+            </h3>
+            <!-- Testimonials -->
+            <div class="tw-mt-20 tw-gap-10 tw-space-y-8  max-md:tw-columns-1 lg:tw-columns-1 xl:tw-columns-1">
+                <!--Container for allauth custom login form-->
+                <div class="reveal-up tw-flex tw-h-fit tw-w-[350px] tw-break-inside-avoid tw-flex-col tw-gap-4 tw-rounded-lg tw-border-[1px] tw-bg-[#f6f7fb] dark:tw-bg-[#080808] dark:tw-border-[#1f2123] tw-p-4 max-lg:tw-w-[320px]">   
+                    <div>
+                        {% trans "Sign In" as heading %}
+                        {% #container heading=heading  %}
+                        {% if not SOCIALACCOUNT_ONLY %}
+                            <div class="py-3">
+                                {% blocktranslate %}If you have not created an account yet, then please
+                                <a class="link" style="color: darkgreen; text-decoration: underline;" href="{{ signup_url }}">sign up</a> first.{% endblocktranslate %}
+                            </div>
+                            {% url 'account_login' as action_url %}
+                            {% #form form=form url=action_url button_text=heading %}
+                            {% if form.remember %}
+                                <div class="items-start my-2 form-control">
+                                    <label class="cursor-pointer label">
+                                        {% render_field form.remember class="checkbox checkbox-accent" %}
+                                        <span class="ml-2 label-text">{% trans "Remember me" %}</span>
+                                    </label>
+                                </div>
+                            {% endif %}
+                            {{ redirect_field }}
+                            {% csrf_token %}
+                            <div class="flex flex-col">
+                                <a class="link self-end text-sm" style="color: darkgreen; text-decoration: underline;" href="{% url "account_reset_password" %}">{% trans "Forgot password?" %}</a>
+                            </div>
+                            {% /form %}
+                        {% endif %}
+                        {% if LOGIN_BY_CODE_ENABLED %}
+                            <div class="divider divider-neutral"></div>
+                            <a href="{{ request_login_code_url }}" style="color: darkgreen; text-decoration: underline;" class="btn btn-neutral">{% trans "Mail me a sign-in code" %}</a>
+                        {% endif %}
+                        {% if SOCIALACCOUNT_ENABLED %}
+                            {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
+                        {% endif %}
+                        {% /container %}
+                    </div>
+                    <!--Commentary text-->
+                    <p class="tw-mt-4 tw-text-gray-800 dark:tw-text-gray-200">
+                        <div class="tw-font-serif">
+                            <i>Anyone who tries to make everyone happy is admirable</i>
+                        </div> 
+                    </p>
+                </div>  
+            </div>
     </section>
 
 {% endblock content %}
-
-
-    
-    
-    
-    
-    
-
-
