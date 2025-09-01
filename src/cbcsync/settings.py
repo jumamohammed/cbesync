@@ -255,6 +255,8 @@ AXES_COOLOFF_TIME = 2 #number of hours before the locked out user can login
 AXES_LOCKOUT_TEMPLATE = 'sync_apps/accounts/lockout.html'
 AXES_IP_BLACKLIST = [] #Instant / permanent lockout from access
 AXES_ENABLE_ACCESS_FAILURE_LOG = True #Every fail attempt to signin is logged
+#allauth_ui custom
+ALLAUTH_UI_THEME = "silk" 
 
 AUTHENTICATION_BACKENDS = [
     # AxesStandaloneBackend should be the first backend in the AUTHENTICATION_BACKENDS list.
@@ -293,10 +295,10 @@ USE_TZ = True
 STORAGES = {
     # ...
     "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
     },
 }
-
+#whitenoise.storage.CompressedManifestStaticFilesStorage
 
 #django static files config, url, location dir, app preload dest
 STATIC_URL = 'static/'
